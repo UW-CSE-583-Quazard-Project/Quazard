@@ -7,3 +7,5 @@ This is Amanda!
 hahahahahahaha
 
 finally -- this is sharon
+
+Update readme from Amanda!
