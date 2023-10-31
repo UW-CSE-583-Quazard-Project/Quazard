@@ -1,0 +1,4 @@
+### Case from Ted
+If a data analyst in a marketing team who uses Qualtrics forms to collect very large data from  various users, he / she would not be able prepare the data manually because the form is too complex
+The form contains several groups of users who have very different experience, which means they need many different headers and subheaders to contain the data.
+Now he / she might want to organize the the data by inputting corresponding parameters, and potentially he / she also wants to eliminate missing data points. Then he / she can use our tool to automatically finish this job in no pain.
