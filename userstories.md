@@ -15,3 +15,4 @@ Ashley wants to extract the data from Qualtrics survey and export the data into 
 Ashley wants a clear user interface and a correct output. 
 Ashley's job doesn't involve programming skills in python.
 
+Kim is an undergraduate student. He used qualtrics for a class project. He has no background in statistics or programming. He just want to create some bar graphs and line graphs in excel showing means, counts and other descriptive stats from his dataset. He wants a very user friendly light weight cleaning tool that he can use without setting up an environment or having internet acccess.
