@@ -1,18 +1,3 @@
-# Quazard
-Qualtrics data cleaning tool.
-Ted Zhong
-This is Amanda!
-Some more lines
-
-hahahahahahaha
-
-finally -- this is sharon
-
-hahahahah again
-
-and this is sharon's version
-
-Update readme from Amanda!
-Hehehe
-
-Test from Ted
+This is a Qualtrics cleaning tool. We call it Qualtrics Wizard (or 
+Quazard, for short). This tool was originally conceived and created for UW 
+CSE 583 and by Chao Qin, Amanda Lin, Ted Zhong, and Sharon Wang.
