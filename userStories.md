@@ -1,1 +1,0 @@
-Ashley is a social scientist. She wants to extract the data from Qualtrics survey and export the data into a format that is runnable by R. Ashley wants a clear user interface and a correct output. Ashley's job doesn't involve programming skills in python.
