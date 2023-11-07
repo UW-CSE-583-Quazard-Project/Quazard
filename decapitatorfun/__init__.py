@@ -1,1 +1,3 @@
+### Import
 
+from .decapitatorfun import *
