@@ -4,7 +4,7 @@ This module contains necessary tests for the Janitor component
 import os
 import unittest
 import pandas as pd
-from src import functions as fc
+from src import janitor as fc
 class TestJanitor(unittest.TestCase):
     """
     Test class for Frankenstein component
