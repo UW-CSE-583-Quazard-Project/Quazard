@@ -13,14 +13,18 @@ class TestJanitor(unittest.TestCase):
         """
         Simple test to check if the function could run normally
         """
-        dataframe = pd.read_csv(os.getcwd() + "/test/cleaned_data.csv")
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data",
+                                     "vt3 data cleaned not converted or aggregated.csv")
+        dataframe = pd.read_csv(raw_file_path)
         cols = ["Q_RecaptchaScore"]
         fc.drop_cols(dataframe, cols)
     def test_one_shot_drop_one_col(self):
         """
         One-shot test to check if the function could drop the given single column
         """
-        dataframe = pd.read_csv(os.getcwd() + "/test/cleaned_data.csv")
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data",
+                                     "vt3 data cleaned not converted or aggregated.csv")
+        dataframe = pd.read_csv(raw_file_path)
         cols = ["Q_RecaptchaScore"]
         dataframe = fc.drop_cols(dataframe, cols)
         for _ in cols:
@@ -29,7 +33,9 @@ class TestJanitor(unittest.TestCase):
         """
         One-shot test to check if the function could drop the given multiple columns
         """
-        dataframe = pd.read_csv(os.getcwd() + "/test/cleaned_data.csv")
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data",
+                                     "vt3 data cleaned not converted or aggregated.csv")
+        dataframe = pd.read_csv(raw_file_path)
         cols = ["Q_RecaptchaScore", "Duration (in seconds)"]
         dataframe = fc.drop_cols(dataframe, cols)
         for _ in cols:
@@ -38,7 +44,9 @@ class TestJanitor(unittest.TestCase):
         """
         Edge test to check if the function could drop a column that does not exist in the dataframe
         """
-        dataframe = pd.read_csv(os.getcwd() + "/test/cleaned_data.csv")
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data",
+                                     "vt3 data cleaned not converted or aggregated.csv")
+        dataframe = pd.read_csv(raw_file_path)
         cols = ["Q_RecaptchaScore", "Duration (in seconds)"]
         dataframe = fc.drop_cols(dataframe, cols)
         with self.assertRaises(ValueError):
