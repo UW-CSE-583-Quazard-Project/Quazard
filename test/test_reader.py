@@ -3,6 +3,7 @@ This module contains tests for the Reader component.
 """
 
 import os
+import magic
 import unittest
 import pandas as pd
 from src import reader
@@ -36,3 +37,26 @@ class TestReader(unittest.TestCase):
 
         result = df1.equals(df2)
         self.assertTrue(result)
+    
+    def test_file_exists(self):
+        """
+        Test to ensure the file specified exists.
+        """
+        
+        path = "imaginary_file.txt"
+        
+        with self.assertRaises(FileNotFoundError) as context:
+            reader.reader(path)
+    
+    def test_file_type(self):
+        """
+        Test to ensure file type is csv.
+        """
+
+        path = os.path.join(os.path.dirname(__file__), "data",
+                            "readme.txt")
+
+        with self.assertRaises(ValueError) as context:
+            reader.reader(path)
+
+
