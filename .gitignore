@@ -2,3 +2,4 @@ folder_to_ignore/Misc/
 *.pyc
 *.pyo
 *.csv
+*.ipynb_checkpoints
