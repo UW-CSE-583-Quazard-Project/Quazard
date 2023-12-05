@@ -31,4 +31,4 @@ jobs:
     - name: Test with pytest
       run: |
         conda install unittest
-        python -m unittest discover -s test
+        python -m unittest discover
