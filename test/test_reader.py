@@ -3,9 +3,9 @@ This module contains tests for the Reader component.
 """
 
 import os
-import magic
 import unittest
 import pandas as pd
+import time
 from src import reader
 
 class TestReader(unittest.TestCase):
@@ -59,4 +59,30 @@ class TestReader(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             reader.reader(path)
 
+    def test_large_file_performance(self):
+        # Create a temporary large CSV file for testing
+        large_csv_file_path = "large_file.csv"
 
+        # Generate a large CSV file (for demonstration purposes)
+        # Adjust the number of rows and columns as needed
+        num_rows = 100000
+        num_columns = 10
+        data = pd.DataFrame({'col{}'.format(i): range(num_rows) for i in range(num_columns)})
+        data.to_csv(large_csv_file_path, index=False)
+
+        # Measure the time it takes to process the large file
+        start_time = time.time()
+        result_df = pd.read_csv(large_csv_file_path)
+        end_time = time.time()
+
+        # Assert that the result is a DataFrame and the processing time is reasonable
+        self.assertIsInstance(result_df, pd.DataFrame)
+        processing_time = end_time - start_time
+        print(f"Processing time for {num_rows} rows and {num_columns} columns: {processing_time:.2f} seconds")
+        
+        # Optionally, set a threshold for processing time based on your performance requirements
+        threshold_time = 10.0  # Set your threshold time in seconds
+        self.assertLess(processing_time, threshold_time)
+
+        # Clean up: Remove the temporary file
+        os.remove(large_csv_file_path)
