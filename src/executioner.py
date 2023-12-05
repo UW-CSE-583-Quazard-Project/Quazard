@@ -1,5 +1,100 @@
 import pandas as pd
 
+file = pd.read_csv("vt3 raw data one header.csv")
+
+def executioner_preview(file, response_id_column, status_column):
+    '''
+    This function will remove rows/partiicpants based on the recaptcha score
+
+    Parameters:
+    - file (pandas.DataFrame): The input DataFrame coming from upstream.
+    - response_id_column: string. The column that has the response ID. User needs to input this.
+    - status_column: string. The column that has the status. User needs to input this.
+    - threshold: float. The recaptcha score threshold
+    - equal_score: boolean. If yes, then participants with scores equal to or above the threshold
+    will be kept. If no, then only participants with scores equal to the theshold will be kept.
+    - missing_score: boolean. If yes, then participants without a score will be kept. If no, they
+    will be removed
+
+    Example:
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> from itertools import cycle, islice
+    >>> data = {'ID': ["PX_A", "PX_B", "PX_C", "PX_D"],
+        'status_px': ["Survey Preview", "IP Address", "IP Address", "IP Address"]}
+    >>> df = pd.DataFrame(data)
+    >>> cleaned = executioner_preview(df,"ID", "status_px")
+    '''
+    # Check whether the response ID column is in the dataframe
+    if response_id_column not in file.columns:
+        raise ValueError("Please make sure response ID column name is properly entered")
+    
+    # Check whether the finished column is in the dataframe
+    if status_column not in file.columns:
+        raise ValueError("Please make sure the status column name is properly entered")
+
+    # Remove rows that were preview
+    newdf = file[file[status_column] != 'Survey Preview']
+    id_difference = pd.concat([file[response_id_column], newdf[response_id_column]]).drop_duplicates(keep=False).tolist()
+    
+    # make the change final
+    file = newdf
+    # return dataframe, a list of ID that was removed, and how many removed
+    return file, id_difference, len(id_difference)
+
+def executioner_completion(file, response_id_column, finished_column):
+    '''
+    This function will remove rows/partiicpants based on completion
+
+    Parameters:
+    - file (pandas.DataFrame): The input DataFrame coming from upstream.
+    - response_id_column: string. The column that has the response ID. User needs to input this.
+    - finished_column: string. The column that tells whether the survey was finished User needs to input this.
+    - threshold: float. The recaptcha score threshold
+    - equal_score: boolean. If yes, then participants with scores equal to or above the threshold
+    will be kept. If no, then only participants with scores equal to the theshold will be kept.
+    - missing_score: boolean. If yes, then participants without a score will be kept. If no, they
+    will be removed
+
+    Example:
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> from itertools import cycle, islice
+    >>> data = {'ID': ["PX_A", "PX_B", "PX_C", "PX_D"],
+        'finished': ["TRUE", "TRUE", "FALSE", "FALSE"]}
+    >>> df = pd.DataFrame(data)
+    >>> cleaned = executioner_completion(df,"ID", "finished")
+    '''
+    # Check whether the response ID column is in the dataframe
+    if response_id_column not in file.columns:
+        raise ValueError("Please make sure response ID column name is properly entered")
+    
+    # Check whether the finished column is in the dataframe
+    if finished_column not in file.columns:
+        raise ValueError("Please make sure the finished column name is properly entered")
+    
+    # Check whether the finished column has only TRUE and FALSE as values.
+    expected_values = ['TRUE', 'FALSE']
+    check_values = file[finished_column].isin(expected_values)
+
+    # Check if all values are either 'TRUE' or 'FALSE'
+    result = check_values.all()
+
+    if result:
+        pass
+    else:
+        raise ValueError("Please make sure the finished column has only TRUE and FALSE. Capitalization matters.")
+
+    # Remove rows that were unfinished
+    newdf = file[file[finished_column] != 'FALSE']
+    id_difference = pd.concat([file[response_id_column], newdf[response_id_column]]).drop_duplicates(keep=False).tolist()
+    
+    # make the change final
+    file = newdf
+    # return dataframe, a list of ID that was removed, and how many removed
+    return file, id_difference, len(id_difference)
+
+
 def executioner_recaptcha(file, response_id_column, recaptcha_id_column, threshold, equal_score, missing_score):
     '''
     This function will remove rows/partiicpants based on the recaptcha score
