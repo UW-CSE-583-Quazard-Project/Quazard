@@ -1,0 +1,11 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - conda=23.7.4
+  - numpy=1.26.0
+  - pandas=2.1.1
+  - pylint=2.16.2
+  - python=3.12.0
+  - tk=8.6.12
+  - yaml=0.2.5
