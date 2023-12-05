@@ -1,16 +1,42 @@
 Component Specification
 
 
-Reader: Read the csv file from date file system and translate the csv file into dataframe
-	input: raw csv file
-	output: dataframe
+Reader (required): Read the csv file from date file system and translate
+.csv file into pandas dataframe
+	input: .csv file
+	output: pandas dataframe
 
  
-DeCapitator(required): remove the second and third rows in the csv file (by default, but user can choose
-input: dataframe from input csv file
-output: a csv file that the second and third row are removed
+Decapitator (optional): Remove duplicate header rows (i.e., 2 & 3)
+	input: dataframe & list of numbers indicating which rows should be 
+	deleted
+	output: dataframe with duplicate rows removed
 
+Executioner (optional): Remove invalid rows based on required values in
+certain columns (e.g., failed reCAPTCHA)
+	input: dataframe & list of column names with required values
+	output: dataframe with invalid rows removed
 
-GUI
-input: the input variable from the users
-output: a list of parameters that specify the actions
+Janitor (optional): Remove unused columns (e.g., web broswer 
+information)
+	input: dataframe & list of columns names to be removed
+	output: dataframe with unused columns removed
+
+Long-wide Converter (optional): Convert repeated measures/multi-trial
+surveys from one participant per row to each measure/trial per row.
+	input: dataframe & list of ***
+	output: dataframe with ***
+
+Frankenstein (optional): Aggregate quantitative data
+	input: dataframe & list of "group by" variables
+	output: re-ordered dataframe by "group by" variable(s)
+
+Outputer (required): Convert dataframe into .csv file for further
+processing
+	input: finalized dataframe
+	output: .csv file
+
+GUI: Interface for users unfamiliar with Python or programming to
+utilize Quazard tool
+	input: user-specified preferences/needs
+	output: a list of parameters that specify the actions
