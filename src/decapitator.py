@@ -17,6 +17,10 @@ def decapitator(file, rows=None):
     >>> df = pd.DataFrame(data)
     >>> result = decapitator(df, rows=[1])
     """
+    if not isinstance(rows, None) or not isinstance(rows, list):
+        raise ValueError("The type of the rows should be None or a list")
+    if not isinstance(file, pd.DataFrame):
+        raise ValueError()
     if rows == None:
         rows = [1, 2]
     else:
