@@ -4,11 +4,6 @@ import pandas as pd
 import numpy as np
 import executioner as exe
 
-data = {'ID': ["PX_A", "PX_B", "PX_C", "PX_D"],
-        'status_px': ["Survey Preview", "IP Address", "IP Address", "IP Address"],
-	'finished': ["TRUE", "TRUE", "FALSE", "FALSE"],
- 	'recaptcha': [0.2, 0.8, 0.5, np.nan]	
-}
 file = pd.DataFrame(data)
 def get_file_name():
     file_name = simpledialog.askstring("Input", "Enter file name:")
