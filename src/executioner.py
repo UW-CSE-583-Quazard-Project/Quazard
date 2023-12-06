@@ -221,7 +221,7 @@ def executioner_attentioncheck_text(file, response_id_column, attentioncheck_tex
     if attentioncheck_text not in file.columns:
         raise ValueError("Please make sure attention check column name is properly entered")
 
-    # Check if the right answer is a positive integer
+    # Check if the right answer is a list of strings
     if not all(isinstance(answers, str) for answers in right_answer):
          raise ValueError("Please make sure the right answer is a list of strings.")
  
