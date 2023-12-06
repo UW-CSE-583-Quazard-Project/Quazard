@@ -1,6 +1,5 @@
 import pandas as pd
 
-file = pd.read_csv("vt3 raw data one header.csv")
 
 def executioner_preview(file, response_id_column, status_column):
     '''
