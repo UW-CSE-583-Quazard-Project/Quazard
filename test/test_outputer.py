@@ -22,10 +22,24 @@ class TestOutputer(unittest.TestCase):
         self.assertTrue(test_df.equals(stored_csv_df))
         os.remove(csv_file_path)
 
-    
-    # one shot test
-    def test_outputer_result_2(self):
-        pass
+    # edge test
+    def test_outputer_edge(self):
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data", "vt3 raw data.csv")
+        test_df = pd.read_csv(raw_file_path, header=None)
+        with self.assertRaises(ValueError):
+            outputer.outputer(test_df, "random file name")
+
+    # edge test
+    def test_outputer_edge_2(self):
+        with self.assertRaises(ValueError):
+            outputer.outputer(None, "random file name")
+
+    # edge test
+    def test_outputer_edge_3(self):
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data", "vt3 raw data.csv")
+        test_df = pd.read_csv(raw_file_path, header=None)
+        with self.assertRaises(ValueError):
+            outputer.outputer(test_df, None)
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestOutputer)
 _ = unittest.TextTestRunner().run(suite)
