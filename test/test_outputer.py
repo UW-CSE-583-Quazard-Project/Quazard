@@ -16,10 +16,9 @@ class TestOutputer(unittest.TestCase):
         test_df = pd.read_csv(raw_file_path, header=None)
         csv_file_path = os.path.join(os.path.dirname(__file__), "data", "outputer_test_file.csv")
         outputer.outputer(test_df, csv_file_path)
-        print(test_df)
         stored_csv_df = pd.read_csv(csv_file_path, header=None)
-        print(stored_csv_df)
         self.assertTrue(test_df.equals(stored_csv_df))
+        os.remove(csv_file_path)
 
     
     # one shot test
