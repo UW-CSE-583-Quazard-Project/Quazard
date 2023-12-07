@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 import executioner as exe
 
-file = pd.DataFrame(data)
 def get_file_name():
     file_name = simpledialog.askstring("Input", "Enter file name:")
     return file_name

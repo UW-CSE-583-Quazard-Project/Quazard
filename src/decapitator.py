@@ -20,12 +20,14 @@ def decapitator(file, rows=None):
     if rows != None and not isinstance(rows, list):
         raise ValueError("The type of the rows should be None or a list")
     if not isinstance(file, pd.DataFrame):
-        raise ValueError("THe input file should be a dataframe")
+        raise ValueError("The input file should be a dataframe")
     if rows == None:
         rows = [1, 2]
     else:
         for i in range(len(rows)):
             rows[i] -= 1
+    if len(rows) > 2:
+        raise ValueError("The number of rows shoudl be less or equal to two")
     file = file.drop(labels=rows, axis=0)
     file = file.reset_index(drop=True)
     return file
