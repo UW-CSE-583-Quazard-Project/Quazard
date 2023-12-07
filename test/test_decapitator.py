@@ -33,6 +33,25 @@ class TestDecapitator(unittest.TestCase):
         self.assertTrue(raw_df.shape == modified_df.shape)
         comparison_result = raw_df.equals(modified_df)
         self.assertTrue(comparison_result)
+    
+    # edge test
+    def test_decapitator_edge(self):
+        with self.assertRaises(ValueError):
+            decapitator.decapitator(None)
+    
+    # edge test
+    def test_decapitator_edge_2(self):
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data", "vt3 raw data.csv")
+        raw_df = pd.read_csv(raw_file_path, header=None)
+        with self.assertRaises(ValueError):
+            decapitator.decapitator(raw_df, 1)
+
+    # edge test
+    def test_decapitator_edge_3(self):
+        raw_file_path = os.path.join(os.path.dirname(__file__), "data", "vt3 raw data.csv")
+        raw_df = pd.read_csv(raw_file_path, header=None)
+        with self.assertRaises(ValueError):
+            decapitator.decapitator(raw_df, [1, 2, 3])
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestDecapitator)
 _ = unittest.TextTestRunner().run(suite)
