@@ -21,10 +21,6 @@ def aggregate(dataframe, group_keys, applied_keys, modes):
     # Check if the column is numeric: if so, it can be applied by any aggregation method
     # Else if it is bool or string, it should only be aggregated by count
     
-    # Three important args:
-    # 1. Groupby columns
-    # 2. Applied columns
-    # 3. Mode
     if dataframe is None:
        raise ValueError("Invalid dataframe found.")
     col_mode_pairs = {}
