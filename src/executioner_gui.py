@@ -26,7 +26,7 @@ def create_executioner_tab(tab_control):
     scrollable_frame = ttk.Frame(canvas)
     canvas.create_window((0, 0), window=scrollable_frame, anchor=tk.NW)
 
-    label_executioner = ttk.Label(scrollable_frame, text='This is the Executioner Tab. Here you can remove rows based on a number of parameters')
+    label_executioner = ttk.Label(scrollable_frame, text='This is the Executioner Tab.\nHere you can remove rows based on a number of parameters\nPlease make sure your dataset has only one header. If not, use decapitator first.')
     label_executioner.pack(padx=10, pady=10)
 
     #### Upon Submission ####
@@ -40,12 +40,17 @@ def create_executioner_tab(tab_control):
         # Get the text entries
         status_column = entry_previewtext_status.get()
         if previewSM == 1:
+            # Check if any of the arguments are empty
+            if not (status_column):
+                messagebox.showerror("Error", "Status column cannot be empty.")
+                return None
+            # run the executioner
             mylist = exe.executioner_preview(file, response_id_column, status_column)
             file =  mylist[0]
             messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed for being survey previews. Here are their IDs:{mylist[1]}")
             print(f"{mylist[2]} participants/rows removed for being survey previews. Here are their IDs")
             print(mylist[1])
-            
+
         
         ## Completion ##
         # Update the 'completion statemachine' variable based on checkbox state
@@ -53,6 +58,11 @@ def create_executioner_tab(tab_control):
         # Get the text entries
         finished_column = entry_finished.get()
         if completionSM == 1:
+            # Check if any of the arguments are empty
+            if not (finished_column):
+                messagebox.showerror("Error", "Finished column cannot be empty.")
+                return None
+            # run the executioner
             mylist = exe.executioner_completion(file, response_id_column, finished_column)
             file =  mylist[0]
             messagebox.showinfo("Success!", f"{mylist[2]} unfinished participants/rows removed. Here are their IDs:{mylist[1]}")
@@ -66,9 +76,14 @@ def create_executioner_tab(tab_control):
         if recaptchaSM == 1:
             recaptchaequalSM = var_equal.get()
             recaptchamissingSM = var_missing.get()
-            # Get the column
+            # Get the column and threshold
             recaptcha_id_column = entry_recap_col.get()
             threshold = float(entry_recap_threshold.get())
+            # Check if any of the arguments are empty
+            if not (recaptcha_id_column and threshold):
+                messagebox.showerror("Error", "Recaptcha column and threshold cannot be empty.")
+                return None
+            # run the executioner
             mylist = exe.executioner_recaptcha(file, 
                                            response_id_column, 
                                            recaptcha_id_column,
@@ -91,6 +106,11 @@ def create_executioner_tab(tab_control):
             temp = str(entry_acmp_answer.get())
             temp = [s.strip().strip("'") for s in temp.split(',')]
             right_answer = [int(x) for x in temp]
+            # Check if any of the arguments are empty
+            if not (attentioncheck_mp and right_answer):
+                messagebox.showerror("Error", "Attention check column and right answer cannot be empty.")
+                return None
+            # run the executioner
             mylist = exe.executioner_attentioncheck_multiplechoice(file, 
                                            response_id_column, 
                                            attentioncheck_mp,
@@ -112,6 +132,11 @@ def create_executioner_tab(tab_control):
             reportonly = acte_checkbox_report
             temp = str(entry_acte_answer.get())
             right_answer = [s.strip().strip("'") for s in temp.split(',')]
+            # Check if any of the arguments are empty
+            if not (attentioncheck_text and right_answer):
+                messagebox.showerror("Error", "Attention check column and right answer cannot be empty.")
+                return None
+            # run the executioner
             mylist = exe.executioner_attentioncheck_text(file, 
                                            response_id_column, 
                                            attentioncheck_text,
@@ -127,7 +152,7 @@ def create_executioner_tab(tab_control):
 
     ### General Paramters ###
     # Create an input text entry for response id
-    label_id = tk.Label(scrollable_frame, text="Enter the column name for response id column. You must have this parameter for any function on this page. If you are unsure, please go to the output tab and print out the CSV to check")
+    label_id = tk.Label(scrollable_frame, text="Enter the column name for response id column.\nYou must have this parameter for any function on this page.\nIf you are unsure, please go to the output tab and print out the CSV to check")
     label_id.pack()
     entry_id = tk.Entry(scrollable_frame)
     entry_id.pack()
@@ -188,7 +213,7 @@ def create_executioner_tab(tab_control):
 
     # Create a checkbox for the equal value argument
     var_equal = tk.BooleanVar()
-    recap_checkbox_equal = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants with scores equal to the threshold? By default only those above the threshold will be kept.", variable=var_equal)
+    recap_checkbox_equal = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants with scores equal to the threshold?\nBy default only those above the threshold will be kept.", variable=var_equal)
     recap_checkbox_equal.pack()
 
     # Create a checkbox for the missing value argument
@@ -205,7 +230,7 @@ def create_executioner_tab(tab_control):
     # Create an input text entry for the threshold
     # First enables validation
     validate_func = executioner_tab.register(validate_input)
-    label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept. Must be a number between 0 and 1. For example: 0.5")
+    label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept.\nMust be a number between 0 and 1. For example: 0.5")
     label_recap_threshold.pack()
     entry_recap_threshold = tk.Entry(scrollable_frame, validate="key", validatecommand=(validate_func, '%P'))
     entry_recap_threshold.pack()
@@ -221,7 +246,7 @@ def create_executioner_tab(tab_control):
 
     # Create a checkbox for whether to do this function
     var_acmp = tk.BooleanVar()
-    acmp_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a multiple choice attention check? If you have more than one multiple choice attention check, you can submit this tab more than once.", variable=var_acmp)
+    acmp_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a multiple choice attention check?\nIf you have more than one multiple choice attention check, you can submit this tab more than once.", variable=var_acmp)
     acmp_checkbox.pack()
 
     # Create an input text entry for the attention check column
@@ -231,7 +256,7 @@ def create_executioner_tab(tab_control):
     entry_acmp_col.pack()
 
     # Create an input text entry for the right answer
-    label_acmp_answer = tk.Label(scrollable_frame, text="Enter the right answer(s) as numbers, not text. Select 'Use Numeric Values' when downloading from qualtrics. seperate each number with a coma with no space after, like this: 1,2,3")
+    label_acmp_answer = tk.Label(scrollable_frame, text="Enter the right answer(s) as numbers, not text.\nSelect 'Use Numeric Values' when downloading from qualtrics.\nSeperate each number with a coma with no space after, like this:\n1,2,3")
     label_acmp_answer.pack()
     entry_acmp_answer = tk.Entry(scrollable_frame)
     entry_acmp_answer.pack()
@@ -248,7 +273,7 @@ def create_executioner_tab(tab_control):
 
     # Create a checkbox for whether to do this function
     var_acte = tk.BooleanVar()
-    acte_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a text entry attention check? If you have more than one text entry attention check, you can submit this tab more than once.", variable=var_acte)
+    acte_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a text entry attention check?\nIf you have more than one text entry attention check, you can submit this tab more than once.", variable=var_acte)
     acte_checkbox.pack()
 
     # Create a checkbox for report only argument
@@ -263,7 +288,7 @@ def create_executioner_tab(tab_control):
     entry_acte_col.pack()
 
     # Create an input text entry for the right answer
-    label_acte_answer = tk.Label(scrollable_frame, text="Enter the right answer(s). Each answer should be covered by single quote marks and seperated with comma, like this: 'apple','orange','banana'")
+    label_acte_answer = tk.Label(scrollable_frame, text="Enter the right answer(s). Each answer should be covered by single quote marks and seperated with comma, like this:\n'apple','orange','banana'")
     label_acte_answer.pack()
     entry_acte_answer = tk.Entry(scrollable_frame)
     entry_acte_answer.pack()

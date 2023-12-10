@@ -14,14 +14,6 @@ def create_converter_tab(tab_control):
 
     #### Upon Submission ####
     def submit():
-        file = pd.DataFrame({
-                            'ID': ["A", "B"],
-                            'rating1': [1,2],
-                            'mp1': ["Apple", "Cat"],
-                            'rating2': [11,12],
-                            'mp2': ["Banana", "Dog"],
-                            'age': [25,35],
-                        })
         # get arguments
         response_id_column = entry_id.get()
         trial_num_text = entry_trial_num.get()
