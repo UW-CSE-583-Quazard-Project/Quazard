@@ -1,3 +1,6 @@
+"""
+This module contains tests for the Outputer component.
+"""
 import os
 import unittest
 import pandas as pd

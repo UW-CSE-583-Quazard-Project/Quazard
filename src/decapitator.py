@@ -17,6 +17,7 @@ def decapitator(file, rows=None):
     >>> df = pd.DataFrame(data)
     >>> result = decapitator(df, rows=[1])
     """
+    # print(file)
     if rows != None and not isinstance(rows, list):
         raise ValueError("The type of the rows should be None or a list")
     if not isinstance(file, pd.DataFrame):
@@ -29,5 +30,13 @@ def decapitator(file, rows=None):
     if len(rows) > 2:
         raise ValueError("The number of rows shoudl be less or equal to two")
     file = file.drop(labels=rows, axis=0)
+    # print(file)
     file = file.reset_index(drop=True)
+    # print(file)
+    file.columns = file.iloc[0]
+    # print(file)
+    file = file.drop(labels=0, axis=0)
+    # print(file)
+    file = file.reset_index(drop=True)
+    
     return file
