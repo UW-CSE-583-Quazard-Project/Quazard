@@ -7,7 +7,6 @@ dataframe. This allows for further processing by Quazard.
 
 import pandas as pd
 
-
 # ask for working file
 def reader(file_path):
     df = pd.read_csv(file_path, header=None)
