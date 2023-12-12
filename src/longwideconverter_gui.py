@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import pandas as pd
-import longwideconverter as convert
+from src import longwideconverter as convert
 
 class LongWideConverter:
     def __init__(self):
