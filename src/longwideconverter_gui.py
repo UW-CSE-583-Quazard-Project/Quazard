@@ -16,7 +16,7 @@ class LongWideConverter:
         label_converter.pack(padx=10, pady=10)
 
         #### Upon Submission ####
-        def submit():
+        def submit(file):
             # get arguments
             response_id_column = entry_id.get()
             trial_num_text = entry_trial_num.get()
