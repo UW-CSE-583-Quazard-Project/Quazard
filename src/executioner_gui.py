@@ -6,7 +6,7 @@ class Executioner:
     def __init__(self):
         pass
 
-    def create_executioner_tab(self, tab_control):
+    def create_executioner_tab(self, tab_control, file):
         # Canvas for scroll bar
         def on_configure(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -305,6 +305,9 @@ class Executioner:
         # Create a Button to submit the tab
         button_submit = tk.Button(scrollable_frame, text="Submit", command=submit)
         button_submit.pack()
+
+        # return file so that other tabs can do something with it.
+        return file
 
     def validate_input(self, new_value):
         if new_value == "":

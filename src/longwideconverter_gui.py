@@ -7,7 +7,7 @@ class LongWideConverter:
     def __init__(self):
         pass
 
-    def create_converter_tab(self, tab_control):
+    def create_converter_tab(self, tab_control, file):
         
         converter_tab = ttk.Frame(tab_control)
         tab_control.add(converter_tab, text='Long-Wide Converter')
@@ -76,6 +76,9 @@ class LongWideConverter:
         # Create a Button to submit the tab
         button_submit = tk.Button(converter_tab, text="Submit", command=submit)
         button_submit.pack()
+
+        # return file so that other tabs can do something with it.
+        return file
 
     def validate_input(new_value):
         if new_value == "":
