@@ -54,14 +54,14 @@ class LongWideConverter:
         # crete an input text entry for number of trials
         label_trial_num = tk.Label(converter_tab, text="Enter the number of trials. Must be a positive integer.")
         label_trial_num.pack()
-        validate_func = converter_tab.register(validate_input)
+        validate_func = converter_tab.register(self.validate_input)
         entry_trial_num = tk.Entry(converter_tab, validate="key", validatecommand=(validate_func, '%P'))
         entry_trial_num.pack()
 
         # crete an input text entry for trial length
         label_trial_length = tk.Label(converter_tab, text="Enter the length (number of columns) of each trial/set of repeated measure. Must be a positive integer.")
         label_trial_length.pack()
-        validate_func = converter_tab.register(validate_input)
+        validate_func = converter_tab.register(self.validate_input)
         entry_trial_length = tk.Entry(converter_tab, validate="key", validatecommand=(validate_func, '%P'))
         entry_trial_length.pack()
 

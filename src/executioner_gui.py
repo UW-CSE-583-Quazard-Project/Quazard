@@ -237,7 +237,7 @@ class Executioner:
         
         # Create an input text entry for the threshold
         # First enables validation
-        validate_func = executioner_tab.register(validate_input)
+        validate_func = executioner_tab.register(self.validate_input)
         label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept.\nMust be a number between 0 and 1. For example: 0.5")
         label_recap_threshold.pack()
         entry_recap_threshold = tk.Entry(scrollable_frame, validate="key", validatecommand=(validate_func, '%P'))
