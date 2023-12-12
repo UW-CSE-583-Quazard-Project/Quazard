@@ -8,7 +8,7 @@ import unittest
 import random as rand
 
 #our components
-import longwideconverter as convert
+from src import longwideconverter as convert
 
 class TestExecutioner(unittest.TestCase):
     """
