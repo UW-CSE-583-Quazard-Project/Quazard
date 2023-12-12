@@ -37,8 +37,7 @@ class Executioner:
         label_executioner.pack(padx=10, pady=10)
 
         #### Upon Submission ####
-        def submit():
-            global file
+        def submit(file):
             # participant ID
             response_id_column = entry_id.get()
             ## Preview ##
