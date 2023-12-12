@@ -8,7 +8,7 @@ import unittest
 import random as rand
 
 #our components
-import executioner as exe
+from src import executioner as exe
 
 class TestExecutioner(unittest.TestCase):
     """
