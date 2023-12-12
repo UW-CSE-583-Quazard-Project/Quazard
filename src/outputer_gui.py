@@ -6,12 +6,12 @@ class OutputerGUI:
     def __init__(self):
         pass
 
-    def outputer_function(file, file_path):
+    def outputer_function(self, file, file_path):
         # Call your outputer function with the file path
         print(f"Outputer function called with file path: {file_path}")
         outputer.outputer(file, file_path)
 
-    def create_outputer_tab(tab_control, dataframe=None):
+    def create_outputer_tab(self, tab_control, dataframe=None):
         outputer_tab = ttk.Frame(tab_control)
         tab_control.add(outputer_tab, text='Outputer')
         
@@ -24,5 +24,5 @@ class OutputerGUI:
         file_path_entry.pack(pady=10)
 
         # Add a Download Button
-        download_button = ttk.Button(outputer_tab, text='Download', command=lambda: outputer_function(dataframe, file_path_var.get()))
+        download_button = ttk.Button(outputer_tab, text='Download', command=lambda: self.outputer_function(dataframe, file_path_var.get()))
         download_button.pack(pady=10)
