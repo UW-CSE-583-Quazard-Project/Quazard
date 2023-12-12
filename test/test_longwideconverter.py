@@ -95,5 +95,7 @@ class TestExecutioner(unittest.TestCase):
         trial_num = 2
         trial_length = 2
 
+
         with self.assertRaises(ValueError):
             convert.long_dataframe_maker(df, "ID", trial_num, trial_length, "rating3")
+
