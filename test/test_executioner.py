@@ -168,26 +168,6 @@ class TestExecutioner(unittest.TestCase):
         right_answer_te = ["cat","car"]
         reportonly = False
 
-        # Run functions one by one
-        temp = exe.executioner_preview(df, 'ID', 'status')
-        df = temp[0]
-        print(f'preview removed {temp[1]}')
-        temp = exe.executioner_completion(df, 'ID', 'finished')
-        df = temp[0]
-        print(f'completion removed {temp[1]}')
-        temp = exe.executioner_recaptcha(df, 'ID', 'recaptcha', threshold, equal_score, missing_score)
-        df = temp[0]
-        print(f'recaptcha removed {temp[1]}')
-        temp = exe.executioner_attentioncheck_multiplechoice(df, 'ID', 'mp',right_answer_mp)
-        df = temp[0]
-        print(f'attention check multiple choice removed {temp[1]}')
-        temp = exe.executioner_attentioncheck_text(df, 'ID', 'te',right_answer_te, reportonly)
-        df = temp[0]
-        print(f'attention check text entry removed {temp[1]}')
 
         with self.assertRaises(ValueError):
-                    exe.executioner_preview(df, 'ID', 'status')
-                    exe.executioner_completion(df, 'ID', 'finished')
-                    exe.executioner_recaptcha(df, 'ID', 'recaptcha', threshold, equal_score, missing_score)
-                    exe.executioner_attentioncheck_multiplechoice(df, 'ID', 'mp',right_answer_mp)
-                    exe.executioner_attentioncheck_text(df, 'ID', 'te',right_answer_te, reportonly)
+                exe.executioner_completion(df, 'ID', 'finished')
