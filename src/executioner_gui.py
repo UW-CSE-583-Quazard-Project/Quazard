@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
-import executioner as exe
+from src import executioner as exe
 
 class Executioner:
     def __init__(self):
