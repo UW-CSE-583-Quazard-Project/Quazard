@@ -7,7 +7,7 @@ class LongWideConverter:
     def __init__(self):
         pass
 
-    def create_converter_tab(self, tab_control):
+    def create_converter_tab(self, tab_control, file):
         
         converter_tab = ttk.Frame(tab_control)
         tab_control.add(converter_tab, text='Long-Wide Converter')
@@ -54,14 +54,14 @@ class LongWideConverter:
         # crete an input text entry for number of trials
         label_trial_num = tk.Label(converter_tab, text="Enter the number of trials. Must be a positive integer.")
         label_trial_num.pack()
-        validate_func = converter_tab.register(validate_input)
+        validate_func = converter_tab.register(self.validate_input)
         entry_trial_num = tk.Entry(converter_tab, validate="key", validatecommand=(validate_func, '%P'))
         entry_trial_num.pack()
 
         # crete an input text entry for trial length
         label_trial_length = tk.Label(converter_tab, text="Enter the length (number of columns) of each trial/set of repeated measure. Must be a positive integer.")
         label_trial_length.pack()
-        validate_func = converter_tab.register(validate_input)
+        validate_func = converter_tab.register(self.validate_input)
         entry_trial_length = tk.Entry(converter_tab, validate="key", validatecommand=(validate_func, '%P'))
         entry_trial_length.pack()
 
@@ -76,6 +76,9 @@ class LongWideConverter:
         # Create a Button to submit the tab
         button_submit = tk.Button(converter_tab, text="Submit", command=submit)
         button_submit.pack()
+
+        # return file so that other tabs can do something with it.
+        return file
 
     def validate_input(new_value):
         if new_value == "":

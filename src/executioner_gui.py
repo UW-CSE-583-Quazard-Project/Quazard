@@ -6,7 +6,7 @@ class Executioner:
     def __init__(self):
         pass
 
-    def create_executioner_tab(self, tab_control):
+    def create_executioner_tab(self, tab_control, file):
         # Canvas for scroll bar
         def on_configure(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -237,7 +237,7 @@ class Executioner:
         
         # Create an input text entry for the threshold
         # First enables validation
-        validate_func = executioner_tab.register(validate_input)
+        validate_func = executioner_tab.register(self.validate_input)
         label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept.\nMust be a number between 0 and 1. For example: 0.5")
         label_recap_threshold.pack()
         entry_recap_threshold = tk.Entry(scrollable_frame, validate="key", validatecommand=(validate_func, '%P'))
@@ -305,6 +305,9 @@ class Executioner:
         # Create a Button to submit the tab
         button_submit = tk.Button(scrollable_frame, text="Submit", command=submit)
         button_submit.pack()
+
+        # return file so that other tabs can do something with it.
+        return file
 
     def validate_input(self, new_value):
         if new_value == "":
