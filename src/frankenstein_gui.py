@@ -10,18 +10,23 @@ class FrankensteinGUI:
     def __init__(self, app_instance):
         self.app_instance = app_instance
 
-    def create_frankenstein_tab(self, tab_control, dataframe=None):
+    def create_frankenstein_tab(self, tab_control):
         """    
         Parameters:
         - tab_control: The upper layer control from the main GUI
         """
         frankenstein_tab = ttk.Frame(tab_control)
         tab_control.add(frankenstein_tab, text='Frankenstein')
-        
-        # Test dataframe
-        if not dataframe:
-            dataframe = pd.read_csv("../test/data/vx3 data long format.csv")
+
+        columns = ["a", "b", "c"]
+        dataframe = self.app_instance.get_dataframe()
+        if dataframe:
             columns = dataframe.columns.tolist()
+
+        # Test dataframe
+        # if not dataframe:
+        #     dataframe = pd.read_csv("../test/data/vx3 data long format.csv")
+        #     columns = dataframe.columns.tolist()
         
         # Create labels
         label1 = ttk.Label(frankenstein_tab, text="Select columns to be grouped:")

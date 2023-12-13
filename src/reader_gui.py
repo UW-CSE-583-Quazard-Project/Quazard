@@ -32,5 +32,5 @@ class ReaderGUI:
             title='Open a file',
             initialdir='/',
             filetypes=filetypes)
-        self.dataframe = rd.reader(filename)
-        self.app_instance.update_dataframe(self.dataframe)
+        dataframe = rd.reader(filename)
+        self.app_instance.update_dataframe(dataframe)

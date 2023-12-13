@@ -17,13 +17,13 @@ class LongWideConverter:
         label_converter.pack(padx=10, pady=10)
 
         #### Upon Submission ####
-        def submit(file):
+        def submit():
             # get arguments
             response_id_column = entry_id.get()
             trial_num_text = entry_trial_num.get()
             trial_length_text = entry_trial_length.get()
             trial_start = str(entry_start.get())
-
+            file = self.app_instance.get_dataframe()
             # Check if any of the trial inputs are empty
             if not (trial_num_text and trial_length_text):
                 messagebox.showerror("Error", "Trial number and length cannot be empty.")
@@ -37,10 +37,10 @@ class LongWideConverter:
                 messagebox.showerror("Error", "Trial number and length must be integers.")
                 return None
 
-            file = convert.long_dataframe_maker(file, response_id_column, trial_num, trial_length, trial_start)
+            new_file = convert.long_dataframe_maker(file, response_id_column, trial_num, trial_length, trial_start)
             messagebox.showinfo("Success!")
-            print(file)
-            self.app_instance.update_dataframe(file)
+            # print(file)
+            self.app_instance.update_dataframe(new_file)
             # return file
         
         #### Interface ####
@@ -82,7 +82,7 @@ class LongWideConverter:
         # return file
         # self.app_instance.update_dataframe(file)
 
-    def validate_input(new_value):
+    def validate_input(self, new_value):
         if new_value == "":
             return True
 
