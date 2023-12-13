@@ -9,7 +9,8 @@ import frankenstein as fc
 class FrankensteinGUI:
     def __init__(self, app_instance):
         self.app_instance = app_instance
-
+        self.options = ["a", "b", "c"]
+        
     def create_frankenstein_tab(self, tab_control):
         """    
         Parameters:
@@ -17,25 +18,15 @@ class FrankensteinGUI:
         """
         frankenstein_tab = ttk.Frame(tab_control)
         tab_control.add(frankenstein_tab, text='Frankenstein')
-
-        columns = ["a", "b", "c"]
-        dataframe = self.app_instance.get_dataframe()
-        if dataframe:
-            columns = dataframe.columns.tolist()
-
-        # Test dataframe
-        # if not dataframe:
-        #     dataframe = pd.read_csv("../test/data/vx3 data long format.csv")
-        #     columns = dataframe.columns.tolist()
         
         # Create labels
         label1 = ttk.Label(frankenstein_tab, text="Select columns to be grouped:")
         label1.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
-        group_keys = []
-        combobox = ttk.Combobox(frankenstein_tab, values=columns)
-        combobox.grid(row=1, column=0, padx=20, pady=5)
+        self.group_keys = []
+        self.combobox = ttk.Combobox(frankenstein_tab, values=self.options)
+        self.combobox.grid(row=1, column=0, padx=20, pady=5)
         
         # Create a box to display selected columns
         listbox = tk.Listbox(frankenstein_tab)
@@ -43,7 +34,7 @@ class FrankensteinGUI:
         
         # Create a button to add selected values
         add_button1 = ttk.Button(frankenstein_tab, text="Add",
-                                command=lambda: self.add_to_group_list(combobox, group_keys, listbox, mode=False))
+                                command=lambda: self.add_to_group_list(self.combobox, self.group_keys, listbox, mode=False))
         add_button1.grid(row=3, column=0, padx=60, pady=5, sticky=tk.W)
         
         # Create labels
@@ -51,9 +42,9 @@ class FrankensteinGUI:
         label2.grid(row=0, column=1, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
-        applied_keys = []
-        combobox2 = ttk.Combobox(frankenstein_tab, values=columns)
-        combobox2.grid(row=1, column=1, padx=20, pady=5)
+        self.applied_keys = []
+        self.combobox2 = ttk.Combobox(frankenstein_tab, values=self.options)
+        self.combobox2.grid(row=1, column=1, padx=20, pady=5)
         
         # Create a box to display selected columns
         listbox2 = tk.Listbox(frankenstein_tab)
@@ -61,7 +52,7 @@ class FrankensteinGUI:
         
         # Create a button to add selected values
         add_button2 = ttk.Button(frankenstein_tab, text="Add",
-                                command=lambda: self.add_to_group_list(combobox2, applied_keys, listbox2, mode=False))
+                                command=lambda: self.add_to_group_list(self.combobox2, self.applied_keys, listbox2, mode=False))
         add_button2.grid(row=3, column=1, padx=80, pady=5, sticky=tk.W)
         
         # Create labels
@@ -70,9 +61,9 @@ class FrankensteinGUI:
         
         # Create a dropmenu with options of dataframe columns
         modes = ["max", "min", "mean", "sum", "count"]
-        selected_modes = []
-        combobox3 = ttk.Combobox(frankenstein_tab, values=modes)
-        combobox3.grid(row=1, column=2, padx=20, pady=5)
+        self.selected_modes = []
+        self.combobox3 = ttk.Combobox(frankenstein_tab, values=modes)
+        self.combobox3.grid(row=1, column=2, padx=20, pady=5)
         
         # Create a box to display selected columns
         listbox3 = tk.Listbox(frankenstein_tab)
@@ -80,8 +71,13 @@ class FrankensteinGUI:
         
         # Create a button to add selected values
         add_button3 = ttk.Button(frankenstein_tab, text="Add",
-                                command=lambda: self.add_to_group_list(combobox3, selected_modes, listbox3, mode=True))
+                                command=lambda: self.add_to_group_list(self.combobox3, self.selected_modes, listbox3, mode=True))
         add_button3.grid(row=3, column=2, padx=80, pady=5, sticky=tk.W)
+        
+        # Create a button to add refresh data
+        ref_button1 = ttk.Button(frankenstein_tab, text="Refresh Data",
+                                command=lambda: self.refresh())
+        ref_button1.grid(row=0, column=3, padx=10, pady=5, sticky=tk.W)
         
         # Create a button to clear selected columns
         clear_button = ttk.Button(frankenstein_tab, text="Reset",
@@ -90,9 +86,14 @@ class FrankensteinGUI:
         
         # Create a button to execute specified aggregation function
         exe_button = ttk.Button(frankenstein_tab, text="Execute",
-                                command=lambda: self.execute(dataframe, group_keys, applied_keys, selected_modes))
+                                command=lambda: self.execute(self.group_keys, self.applied_keys, self.selected_modes))
         exe_button.grid(row=2, column=3, padx=10, pady=5, sticky=tk.W)
-        
+    
+    def refresh(self):
+        self.options = self.app_instance.get_dataframe().columns.tolist()
+        self.combobox['values'] = self.options
+        self.combobox2['values'] = self.options
+       
     def add_to_group_list(self, combobox, selected_values, listbox, mode=False):
         """
         Parameters:
@@ -131,6 +132,9 @@ class FrankensteinGUI:
         listbox1.delete(0, tk.END)
         listbox2.delete(0, tk.END)
         listbox3.delete(0, tk.END)
+        self.applied_keys = []
+        self.group_keys = []
+        self.selected_modes = []
         
     def execute(self, group_keys, applied_keys, selected_mode):
         """
