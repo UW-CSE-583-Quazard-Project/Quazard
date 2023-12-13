@@ -7,8 +7,8 @@ import pandas as pd
 import frankenstein as fc
 
 class FrankensteinGUI:
-    def __init__(self):
-        pass
+    def __init__(self, app_instance):
+        self.app_instance = app_instance
 
     def create_frankenstein_tab(self, tab_control, dataframe=None):
         """    
@@ -127,7 +127,7 @@ class FrankensteinGUI:
         listbox2.delete(0, tk.END)
         listbox3.delete(0, tk.END)
         
-    def execute(self, dataframe, group_keys, applied_keys, selected_mode):
+    def execute(self, group_keys, applied_keys, selected_mode):
         """
         Parameters:
         - dataframe: Dataframe passed from the previous component
@@ -138,11 +138,12 @@ class FrankensteinGUI:
         Returns:
         - new_df: An aggregated dataframe
         """
+        dataframe = self.app_instance.get_dataframe()
         if group_keys and applied_keys and not selected_mode == "Mode: None":
             try:    
                 new_df = fc.aggregate(dataframe, group_keys, applied_keys, selected_mode)
+                self.app_instance.update_dataframe(new_df)
                 messagebox.showinfo("Columns Aggregated", "Selected columns have been aggregated.")
-                return new_df
             except ValueError:
                 messagebox.showwarning("Aggregation Failed", "Selected columns have not beed aggregated properly!")
         else:

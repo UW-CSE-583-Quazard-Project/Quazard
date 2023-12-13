@@ -15,11 +15,13 @@ class App:
         tab_control = ttk.Notebook(root)
         reader = reader_gui.ReaderGUI(self)
         decapitator = decapitator_gui.DecapitatorGUI(self)
+
         executioner = executioner_gui.Executioner(self)
         converter = longwideconverter_gui.LongWideConverter(self)
-        janitor = janitor_gui.JanitorGUI()
-        frankenstein = frankenstein_gui.FrankensteinGUI()
-        outputer = outputer_gui.OutputerGUI() 
+        janitor = janitor_gui.JanitorGUI(self)
+        frankenstein = frankenstein_gui.FrankensteinGUI(self)
+        outputer = outputer_gui.OutputerGUI(self) 
+
         
         dataframe = reader.create_reader_tab(tab_control)
         if dataframe: print(dataframe)

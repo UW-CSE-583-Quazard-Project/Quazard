@@ -8,8 +8,8 @@ import pandas as pd
 from tkinter import messagebox
 
 class JanitorGUI:
-    def __init__(self):
-        pass
+    def __init__(self, app_instance):
+        self.app_instance = app_instance
 
     def create_janitor_tab(self, tab_control, dataframe=None):
         """    
@@ -81,7 +81,7 @@ class JanitorGUI:
         """
         listbox.delete(0, tk.END)
         
-    def drop_selected_columns(self, selected_values, dataframe):
+    def drop_selected_columns(self, selected_values):
         """
         Parameters:
         - listbox: The display box for columns to be dropped
@@ -89,11 +89,12 @@ class JanitorGUI:
         Returns:
         - new_dataframe: The new dataframe without selected columns
         """
+        dataframe = self.app_instance.get_dataframe()
         if selected_values:
             try:
                 new_dataframe = janitor.drop_cols(dataframe, selected_values)
                 messagebox.showinfo("Columns Dropped", "Selected columns have been dropped.")
-                return new_dataframe
+                self.app_instance.update_dataframe(new_dataframe)
             except ValueError:
                 messagebox.showwarning("Dropping Failed", "Selected columns have not beed dropped properly!")
         else:
