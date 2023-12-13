@@ -1,18 +1,19 @@
 **Functional Specification**
 
-Background:
+_Background:_
     Data exported from Qualtrics contains redundancies and unnecessary
     data. Users often have to clean the raw data before they can data
     analyze.
 
-User profile:
+_User profile:_
     Individuals who export data from Qualtrics and want to clean it
     before analysis.
 
-Data sources:
+_Data sources:_
     Exported data file from Qualtrics (in csv format).
 
-Use cases:
+_Use cases:_
+
 (1) A data analyst in marketing team uses Qualtrics forms to collect
     lots of data from various users. She struggles to prepare the data
     manually because the Qualtrics survey and data gathered are very
