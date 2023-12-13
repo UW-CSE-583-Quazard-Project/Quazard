@@ -1,3 +1,6 @@
+"""
+This is the module to handle the GUI tab for Reader
+"""
 import tkinter.ttk as ttk
 from tkinter import ttk
 from tkinter import filedialog as fd
@@ -12,6 +15,10 @@ class ReaderGUI:
     #     return file_name
 
     def create_reader_tab(self, tab_control):
+        """    
+        Parameters:
+        - tab_control: The upper layer control from the main GUI
+        """
         reader_tab = ttk.Frame(tab_control)
         tab_control.add(reader_tab, text='Reader')
         

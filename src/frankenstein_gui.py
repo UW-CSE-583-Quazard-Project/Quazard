@@ -1,5 +1,5 @@
 """
-This is the module to handle the GUI tab for Frankenstein
+This is the module to handle the GUI tab for Executioner
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -18,76 +18,91 @@ class FrankensteinGUI:
         """
         frankenstein_tab = ttk.Frame(tab_control)
         tab_control.add(frankenstein_tab, text='Frankenstein')
+
+        label_frankenstein_top = ttk.Label(frankenstein_tab, text="This is the Frankenstein Tab.\n"
+                                        "Here you can conduct aggregation on your dataset\n"
+                                        "Please make sure your dataset has only one header.\n"
+                                        "If not, use decapitator first."
+                                        "If your dataset has repeated measures/multiple trials, please "
+                                        "use the long-wide converter first \n"
+                                        "Refresh the data first\n"
+                                        "NOTE: The aggregated dataset will ONLY have the columns you selected here\n"
+                                        "Therefore it is recommended to output and save your data first")
+        label_frankenstein_top.grid(row=0, column=0, padx=10, pady=10)
         
+        # Create a Frame for three columns
+        frame_columns = tk.Frame(frankenstein_tab)
+        frame_columns.grid(row=1, column=0, padx=10, pady=10)
+
         # Create labels
-        label1 = ttk.Label(frankenstein_tab, text="Select columns to be grouped:")
-        label1.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
+        label1 = ttk.Label(frame_columns, text="Select columns to be grouped:")
+        label1.grid(row=1, column=0, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
         self.group_keys = []
-        self.combobox = ttk.Combobox(frankenstein_tab, values=self.options)
-        self.combobox.grid(row=1, column=0, padx=20, pady=5)
+        self.combobox = ttk.Combobox(frame_columns, values=self.options)
+        self.combobox.grid(row=2, column=0, padx=20, pady=5)
         
         # Create a box to display selected columns
-        listbox = tk.Listbox(frankenstein_tab)
-        listbox.grid(row=2, column=0, pady=10)
+        listbox = tk.Listbox(frame_columns)
+        listbox.grid(row=3, column=0, pady=10)
         
         # Create a button to add selected values
-        add_button1 = ttk.Button(frankenstein_tab, text="Add",
+        add_button1 = ttk.Button(frame_columns, text="Add",
                                 command=lambda: self.add_to_group_list(self.combobox, self.group_keys, listbox, mode=False))
-        add_button1.grid(row=3, column=0, padx=60, pady=5, sticky=tk.W)
+        add_button1.grid(row=4, column=0, padx=60, pady=5, sticky=tk.W)
         
         # Create labels
-        label2 = ttk.Label(frankenstein_tab, text="Select columns to be aggregated on:")
-        label2.grid(row=0, column=1, padx=10, pady=5, sticky=tk.W)
+        label2 = ttk.Label(frame_columns, text="Select columns to be aggregated on:")
+        label2.grid(row=1, column=1, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
         self.applied_keys = []
-        self.combobox2 = ttk.Combobox(frankenstein_tab, values=self.options)
-        self.combobox2.grid(row=1, column=1, padx=20, pady=5)
+        self.combobox2 = ttk.Combobox(frame_columns, values=self.options)
+        self.combobox2.grid(row=2, column=1, padx=20, pady=5)
         
         # Create a box to display selected columns
-        listbox2 = tk.Listbox(frankenstein_tab)
-        listbox2.grid(row=2, column=1, pady=10)
+        listbox2 = tk.Listbox(frame_columns)
+        listbox2.grid(row=3, column=1, pady=10)
         
         # Create a button to add selected values
-        add_button2 = ttk.Button(frankenstein_tab, text="Add",
+        add_button2 = ttk.Button(frame_columns, text="Add",
                                 command=lambda: self.add_to_group_list(self.combobox2, self.applied_keys, listbox2, mode=False))
-        add_button2.grid(row=3, column=1, padx=80, pady=5, sticky=tk.W)
+        add_button2.grid(row=4, column=1, padx=80, pady=5, sticky=tk.W)
         
         # Create labels
-        label3 = ttk.Label(frankenstein_tab, text="Select aggregation mode:")
-        label3.grid(row=0, column=2, padx=10, pady=5, sticky=tk.W)
+        label3 = ttk.Label(frame_columns, text="Select aggregation mode:")
+        label3.grid(row=1, column=2, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
         modes = ["max", "min", "mean", "sum", "count"]
         self.selected_modes = []
-        self.combobox3 = ttk.Combobox(frankenstein_tab, values=modes)
-        self.combobox3.grid(row=1, column=2, padx=20, pady=5)
+        self.combobox3 = ttk.Combobox(frame_columns, values=modes)
+        self.combobox3.grid(row=2, column=2, padx=20, pady=5)
         
         # Create a box to display selected columns
-        listbox3 = tk.Listbox(frankenstein_tab)
-        listbox3.grid(row=2, column=2, pady=10)
+        listbox3 = tk.Listbox(frame_columns)
+        listbox3.grid(row=3, column=2, pady=10)
         
         # Create a button to add selected values
-        add_button3 = ttk.Button(frankenstein_tab, text="Add",
+        add_button3 = ttk.Button(frame_columns, text="Add",
                                 command=lambda: self.add_to_group_list(self.combobox3, self.selected_modes, listbox3, mode=True))
-        add_button3.grid(row=3, column=2, padx=80, pady=5, sticky=tk.W)
+        add_button3.grid(row=4, column=2, padx=80, pady=5, sticky=tk.W)
         
         # Create a button to add refresh data
-        ref_button1 = ttk.Button(frankenstein_tab, text="Refresh Data",
+        ref_button1 = ttk.Button(frame_columns, text="Refresh Data",
                                 command=lambda: self.refresh())
-        ref_button1.grid(row=0, column=3, padx=10, pady=5, sticky=tk.W)
+        ref_button1.grid(row=1, column=3, padx=10, pady=5, sticky=tk.W)
         
         # Create a button to clear selected columns
-        clear_button = ttk.Button(frankenstein_tab, text="Reset",
+        clear_button = ttk.Button(frame_columns, text="Reset",
                                 command=lambda: self.clear_values(listbox, listbox2, listbox3))
-        clear_button.grid(row=1, column=3, padx=10, pady=5, sticky=tk.W)
+        clear_button.grid(row=2, column=3, padx=10, pady=5, sticky=tk.W)
         
         # Create a button to execute specified aggregation function
-        exe_button = ttk.Button(frankenstein_tab, text="Execute",
+        exe_button = ttk.Button(frame_columns, text="Execute",
                                 command=lambda: self.execute(self.group_keys, self.applied_keys, self.selected_modes))
-        exe_button.grid(row=2, column=3, padx=10, pady=5, sticky=tk.W)
+        exe_button.grid(row=3, column=3, padx=10, pady=5, sticky=tk.W)
     
     def refresh(self):
         self.options = self.app_instance.get_dataframe().columns.tolist()

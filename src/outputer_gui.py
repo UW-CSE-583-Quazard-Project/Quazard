@@ -1,3 +1,6 @@
+"""
+This is the module to handle the GUI tab for Outputer
+"""
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
 import outputer
@@ -7,16 +10,25 @@ class OutputerGUI:
         self.app_instance = app_instance
 
     def outputer_function(self, file_path):
-        # Call your outputer function with the file path
+        """   
+        This function calls your outputer function with the file path 
+        Parameters:
+        - tab_control: The upper layer control from the main GUI
+        """
         print(f"Outputer function called with file path: {file_path}")
         file = self.app_instance.get_dataframe()
         outputer.outputer(file, file_path)
 
     def create_outputer_tab(self, tab_control):
+        """    
+        Parameters:
+        - tab_control: The upper layer control from the main GUI
+        """
         outputer_tab = ttk.Frame(tab_control)
         tab_control.add(outputer_tab, text='Outputer')
         
-        label_outputer = ttk.Label(outputer_tab, text='This is the Outputer Tab. You can download the csv file from here!\n Please enter the file path here.')
+        label_outputer = ttk.Label(outputer_tab, text='This is the Outputer Tab. You can download the csv file from here!\n \
+                                   Please enter the COMPLTE file path here.')
         label_outputer.pack(padx=10, pady=10)
 
         # Add an Entry widget for the file path
