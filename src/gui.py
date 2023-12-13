@@ -21,9 +21,7 @@ class App:
         frankenstein = frankenstein_gui.FrankensteinGUI(self)
         outputer = outputer_gui.OutputerGUI(self) 
         
-        dataframe = reader.create_reader_tab(tab_control)
-        if dataframe: print(dataframe)
-        
+        reader.create_reader_tab(tab_control)
         decapitator.create_decapitator_tab(tab_control)
         # executioner.create_executioner_tab(tab_control)
         # converter.create_converter_tab(tab_control)
@@ -40,6 +38,7 @@ class App:
         # Now you can pass self.dataframe to other instances of other classes
         
     def get_dataframe(self):
+        print(f"Current dataframe: {self.dataframe}")
         return self.dataframe
 
 
