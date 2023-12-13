@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def decapitator(file, rows=None):
     """
@@ -30,13 +31,20 @@ def decapitator(file, rows=None):
     if len(rows) > 2:
         raise ValueError("The number of rows shoudl be less or equal to two")
     file = file.drop(labels=rows, axis=0)
-    # print(file)
     file = file.reset_index(drop=True)
-    # print(file)
     file.columns = file.iloc[0]
-    # print(file)
     file = file.drop(labels=0, axis=0)
-    # print(file)
     file = file.reset_index(drop=True)
-    
+    # file = file.convert_dtypes()
+    for col in file.columns:
+        if file[col].dtype == 'object':
+            try:
+                file[col] = pd.to_numeric(file[col])
+            except ValueError:
+                try:
+                    file[col] = pd.to_datetime(file[col])
+                except ValueError:
+                    pass  # Handle non-convertible columns
+    print(file.dtypes)
+    print(file['Q_RecaptchaScore'].dtypes)
     return file
