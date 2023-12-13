@@ -4,10 +4,11 @@ import pandas as pd
 import longwideconverter as convert
 
 class LongWideConverter:
-    def __init__(self):
-        pass
+    def __init__(self, app_instance):
+        self.app_instance = app_instance
 
-    def create_converter_tab(self, tab_control, file):
+    def create_converter_tab(self, tab_control):
+        file = self.app_instance.get_dataframe()
         
         converter_tab = ttk.Frame(tab_control)
         tab_control.add(converter_tab, text='Long-Wide Converter')
@@ -39,8 +40,8 @@ class LongWideConverter:
             file = convert.long_dataframe_maker(file, response_id_column, trial_num, trial_length, trial_start)
             messagebox.showinfo("Success!")
             print(file)
-                
-            return file
+            self.app_instance.update_dataframe(file)
+            # return file
         
         #### Interface ####
 
@@ -78,7 +79,8 @@ class LongWideConverter:
         button_submit.pack()
 
         # return file so that other tabs can do something with it.
-        return file
+        # return file
+        # self.app_instance.update_dataframe(file)
 
     def validate_input(new_value):
         if new_value == "":
