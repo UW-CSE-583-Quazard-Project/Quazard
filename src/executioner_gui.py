@@ -3,10 +3,12 @@ from tkinter import ttk, simpledialog, messagebox
 import executioner as exe
 
 class Executioner:
-    def __init__(self):
-        pass
+    def __init__(self, app_instance):
+        self.app_instance = app_instance
 
-    def create_executioner_tab(self, tab_control, file):
+    def create_executioner_tab(self, tab_control):
+        file = self.app_instance.get_dataframe()
+        
         # Canvas for scroll bar
         def on_configure(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -57,6 +59,7 @@ class Executioner:
                                     Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} participants/rows removed for being survey previews. Here are their IDs")
                 print(mylist[1])
+                self.app_instance.update_dataframe(file)
 
             
             ## Completion ##
@@ -75,6 +78,7 @@ class Executioner:
                 messagebox.showinfo("Success!", f"{mylist[2]} unfinished participants/rows removed. Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} unfinished participants/rows removed. Here are their IDs")
                 print(mylist[1])
+                self.app_instance.update_dataframe(file)
                 
             
             ## Recaptcha ##
@@ -102,6 +106,7 @@ class Executioner:
                 messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed based on recaptcha scores. Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} participants/rows removed based on recaptcha scores. Here are their IDs")
                 print(mylist[1])
+                self.app_instance.update_dataframe(file)
                 
 
             ## Attention Check Multiple Choice ##
@@ -127,6 +132,7 @@ class Executioner:
                 messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed based on a multiple choice attention check. Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} participants/rows removed based on a multiple choice attention check. Here are their IDs")
                 print(mylist[1])
+                self.app_instance.update_dataframe(file)
                 
             
             ## Attention Check Text Entry ##
@@ -154,7 +160,9 @@ class Executioner:
                 messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed based on a text entry attention check. Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} participants/rows removed based on a text entry attention check. Here are their IDs")
                 print(mylist[1])
-            return file
+                self.app_instance.update_dataframe(file)
+            # return file
+            
         #### Interface ####
 
         ### General Paramters ###
@@ -306,7 +314,8 @@ class Executioner:
         button_submit.pack()
 
         # return file so that other tabs can do something with it.
-        return file
+        # return file
+        self.app_instance.update_dataframe(file)
 
     def validate_input(self, new_value):
         if new_value == "":

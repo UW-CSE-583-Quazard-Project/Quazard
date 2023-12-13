@@ -25,9 +25,9 @@ class DecapitatorGUI:
             print(rows)
             result_label.config(text="Redundant headers are removed")
         decapitator_result = decapitator.decapitator(dataframe, rows)
-        return decapitator_result
-
-    def create_decapitator_tab(self, tab_control, dataframe=None):
+        self.app_instance.update_dataframe(decapitator_result)
+        
+    def create_decapitator_tab(self, tab_control):
         decapitator_tab = ttk.Frame(tab_control)
         tab_control.add(decapitator_tab, text='Decapitator')
         
@@ -46,6 +46,6 @@ class DecapitatorGUI:
         result_label.pack(pady=10)
 
         submit_button = ttk.Button(decapitator_tab, text='Submit',
-                                   command=lambda: self.decapitator_function(dataframe, entry_text.get(), submit_button, result_label))
+                                   command=lambda: self.decapitator_function(self.app_instance.get_dataframe(), entry_text.get(), submit_button, result_label))
         submit_button.pack(pady=10)
         
