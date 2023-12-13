@@ -8,4 +8,4 @@ def outputer(file, file_path):
         raise ValueError("The file path should be a string.")
     if not os.path.isdir(os.path.dirname(file_path)):
         raise ValueError("The file path is invalid.")
-    file.to_csv(file_path, header=False, index=False)
+    file.to_csv(file_path, index=False)

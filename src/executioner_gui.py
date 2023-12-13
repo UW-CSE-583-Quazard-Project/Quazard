@@ -7,7 +7,7 @@ class Executioner:
         self.app_instance = app_instance
 
     def create_executioner_tab(self, tab_control):
-        file = self.app_instance.get_dataframe()
+        
         
         # Canvas for scroll bar
         def on_configure(event):
@@ -39,7 +39,8 @@ class Executioner:
         label_executioner.pack(padx=10, pady=10)
 
         #### Upon Submission ####
-        def submit(file):
+        def submit():
+            file = self.app_instance.get_dataframe()
             # participant ID
             response_id_column = entry_id.get()
             ## Preview ##
@@ -139,9 +140,9 @@ class Executioner:
             # Update the 'acte statemachine' variable based on checkbox state
             attentioncheckTESM = var_acte.get()
             if attentioncheckTESM == 1:
-                acte_checkbox_report.set(var_acte_report.get())
+                acte_checkbox_report = var_acte_report.get()
                 # Get the text entries
-                attentioncheck_text = entry_acmp_col.get()
+                attentioncheck_text = entry_acte_col.get()
                 reportonly = acte_checkbox_report
                 temp = str(entry_acte_answer.get())
                 right_answer = [s.strip().strip("'") for s in temp.split(',')]
@@ -315,7 +316,7 @@ class Executioner:
 
         # return file so that other tabs can do something with it.
         # return file
-        self.app_instance.update_dataframe(file)
+        # self.app_instance.update_dataframe(file)
 
     def validate_input(self, new_value):
         if new_value == "":

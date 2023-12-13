@@ -139,10 +139,11 @@ def executioner_recaptcha(file, response_id_column, recaptcha_id_column, thresho
 
     # Remove rows based on threshold
     if equal_score == True:
-        newdf = file[(file[recaptcha_id_column] >= 0.5) | pd.isnull(file[recaptcha_id_column])]
+        file[recaptcha_id_column] = pd.to_numeric(file[recaptcha_id_column])
+        newdf = file[(file[recaptcha_id_column] >= threshold) | pd.isnull(file[recaptcha_id_column])]
         id_difference = pd.concat([file[response_id_column], newdf[response_id_column]]).drop_duplicates(keep=False).tolist()
     elif equal_score == False:
-        newdf = file[(file[recaptcha_id_column] > 0.5) | pd.isnull(file[recaptcha_id_column])]
+        newdf = file[(file[recaptcha_id_column] > threshold) | pd.isnull(file[recaptcha_id_column])]
         id_difference = pd.concat([file[response_id_column], newdf[response_id_column]]).drop_duplicates(keep=False).tolist()
     # Remove based on missing score
     if missing_score == False:
