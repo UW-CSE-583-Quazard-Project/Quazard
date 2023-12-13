@@ -1,3 +1,6 @@
+"""
+This is the module to handle the GUI tab for longwideconverter
+"""
 import tkinter as tk
 from tkinter import ttk, messagebox
 import pandas as pd
@@ -8,16 +11,32 @@ class LongWideConverter:
         self.app_instance = app_instance
 
     def create_converter_tab(self, tab_control):
+        """    
+        Parameters:
+        - tab_control: The upper layer control from the main GUI
+        """
         file = self.app_instance.get_dataframe()
         
         converter_tab = ttk.Frame(tab_control)
         tab_control.add(converter_tab, text='Long-Wide Converter')
 
-        label_converter = ttk.Label(converter_tab, text='This is the Converter Tab. Here you can reconfigure your wide format data to long format.\nBefore you start, make sure the dataset meets the following criteria.\nIf you are unsure, go to the output tab and print out the csv to check.\n#1. The data has only one line of header\n#2. Each trial/set of repeated measure\'s columns should be right next to each other.\nE.g.,: Trial1Q1,Trial1Q2,Trial2Q1,Trial2Q2\n#3. Each trial/set of repeated measure has the EXACTLY same number of columns')
+        label_converter = ttk.Label(converter_tab, text="This is the Converter Tab. \n"
+                                    "Here you can reconfigure your wide format data to long format.\n"
+                                    "Before you start, make sure the dataset meets the following criteria.\n"
+                                    "If you are unsure, go to the output tab and print out the csv to check.\n"
+                                    "#1. The data has only one line of header\n"
+                                    "#2. Each trial/set of repeated measure\'s columns should be right next to each other.\n"
+                                    "E.g.,: Trial1Q1,Trial1Q2,Trial2Q1,Trial2Q2\n"
+                                    "#3. Each trial/set of repeated measure has the EXACTLY same number of columns \n"
+                                    "#4. Each question/column in the trials has the EXACTLY same question type (number, string, .etc)")
         label_converter.pack(padx=10, pady=10)
 
         #### Upon Submission ####
         def submit():
+            """    
+            After clicking the submit button, this function will read the input and pass
+            them onto the longwideconverter function.
+            """
             # get arguments
             response_id_column = entry_id.get()
             trial_num_text = entry_trial_num.get()
@@ -38,7 +57,7 @@ class LongWideConverter:
                 return None
 
             new_file = convert.long_dataframe_maker(file, response_id_column, trial_num, trial_length, trial_start)
-            messagebox.showinfo("Success!")
+            messagebox.showinfo("Success!","Success!")
             # print(file)
             self.app_instance.update_dataframe(new_file)
             # return file
@@ -47,7 +66,8 @@ class LongWideConverter:
 
         ### General Paramters ###
         # Create an input text entry for response id
-        label_id = tk.Label(converter_tab, text="Enter the column name for response id column.\nIf you are unsure, please go to the output tab and print out the CSV to check")
+        label_id = tk.Label(converter_tab, text="Enter the column name for response id column.\n"
+                            "If you are unsure, please go to the output tab and print out the CSV to check")
         label_id.pack()
         entry_id = tk.Entry(converter_tab)
         entry_id.pack()
@@ -60,14 +80,16 @@ class LongWideConverter:
         entry_trial_num.pack()
 
         # crete an input text entry for trial length
-        label_trial_length = tk.Label(converter_tab, text="Enter the length (number of columns) of each trial/set of repeated measure. Must be a positive integer.")
+        label_trial_length = tk.Label(converter_tab, text="Enter the length (number of columns) of each trial/set "
+                                      "of repeated measure. Must be a positive integer.")
         label_trial_length.pack()
         validate_func = converter_tab.register(self.validate_input)
         entry_trial_length = tk.Entry(converter_tab, validate="key", validatecommand=(validate_func, '%P'))
         entry_trial_length.pack()
 
         # Create an input text entry for starting column
-        label_start = tk.Label(converter_tab, text="Enter the column name where the trials first start. E.g., Trial1Q1.\nIf you are unsure, please go to the output tab and print out the CSV to check")
+        label_start = tk.Label(converter_tab, text="Enter the column name where the trials first start. E.g., Trial1Q1.\n"
+                               "If you are unsure, please go to the output tab and print out the CSV to check")
         label_start.pack()
         entry_start = tk.Entry(converter_tab)
         entry_start.pack()

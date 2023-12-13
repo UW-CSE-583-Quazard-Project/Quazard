@@ -31,10 +31,10 @@ class DecapitatorGUI:
         decapitator_tab = ttk.Frame(tab_control)
         tab_control.add(decapitator_tab, text='Decapitator')
         
-        label_decapitator = ttk.Label(decapitator_tab, text="This is the Decapitator Tab. \
-                                      You can choose which redundant header that you want to delete. \
-                                      By default it delete the second and the third row. \
-                                      But if you want to delete the first row and the third row, please enter 1,3 without any space")
+        label_decapitator = ttk.Label(decapitator_tab, text="This is the Decapitator Tab. \n"
+                                      "You can choose which redundant header that you want to delete. \n"
+                                      "By default it delete the second and the third row. \n"
+                                      "But if you want to delete the first row and the third row, please enter 1,3 without any space")
         label_decapitator.pack(padx=10, pady=10)
 
         entry_text = tk.StringVar()
