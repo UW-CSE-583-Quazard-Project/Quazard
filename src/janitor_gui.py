@@ -20,10 +20,10 @@ class JanitorGUI:
         janitor_tab = ttk.Frame(tab_control)
         tab_control.add(janitor_tab, text='Janitor')
         
-        # Test dataframe
-        if not dataframe: 
-            df = pd.read_csv("../test/data/vt3 data cleaned not converted or aggregated.csv")
-            columns = df.columns.tolist()
+        columns = ["a", "b", "c"]
+        dataframe = self.app_instance.get_dataframe()
+        if dataframe:
+            columns = dataframe.columns.tolist()
         
         # Create labels
         label1 = ttk.Label(janitor_tab, text="Select columns to be dropped:")
@@ -45,7 +45,7 @@ class JanitorGUI:
         
         # Create a button to submit selected values
         drop_button = ttk.Button(janitor_tab, text="Drop Selected Columns",
-                                command=lambda: self.drop_selected_columns(selected_values, df))
+                                command=lambda: self.drop_selected_columns(selected_values))
         drop_button.grid(row=1, column=1, padx=10, pady=10)
         
         # Create a button to clear selected columns

@@ -15,30 +15,22 @@ class App:
         tab_control = ttk.Notebook(root)
         reader = reader_gui.ReaderGUI(self)
         decapitator = decapitator_gui.DecapitatorGUI(self)
-
-        executioner = executioner_gui.Executioner(self)
-        converter = longwideconverter_gui.LongWideConverter(self)
+        # executioner = executioner_gui.Executioner()
+        # converter = longwideconverter_gui.LongWideConverter()
         janitor = janitor_gui.JanitorGUI(self)
         frankenstein = frankenstein_gui.FrankensteinGUI(self)
         outputer = outputer_gui.OutputerGUI(self) 
-
         
         dataframe = reader.create_reader_tab(tab_control)
         if dataframe: print(dataframe)
         
         decapitator.create_decapitator_tab(tab_control)
-        executioner.create_executioner_tab(tab_control)
-        converter.create_converter_tab(tab_control)
-        # janitor.create_janitor_tab(tab_control)
-        # frankenstein.create_frankenstein_tab(tab_control)
-        # outputer.create_outputer_tab(tab_control)
+        # executioner.create_executioner_tab(tab_control)
+        # converter.create_converter_tab(tab_control)
+        janitor.create_janitor_tab(tab_control)
+        frankenstein.create_frankenstein_tab(tab_control)
+        outputer.create_outputer_tab(tab_control)
         
-        # reader_gui.create_reader_tab(tab_control)
-        # executioner_gui.create_executioner_tab(tab_control)
-        # longwideconverter_gui.create_converter_tab(tab_control)
-        # janitor_gui.create_janitor_tab(tab_control)
-        # frankenstein_gui.create_frankenstein_tab(tab_control)
-        # outputer_gui.create_outputer_tab(tab_control)
         tab_control.pack(expand=1, fill='both')
         root.mainloop()
     
