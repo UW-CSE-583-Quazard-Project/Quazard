@@ -4,8 +4,8 @@ import decapitator
 import re
 
 class DecapitatorGUI:
-    def __init__(self):
-        pass
+    def __init__(self, app_instance):
+        self.app_instance = app_instance
     
     def is_valid_input(self, user_input):
         # Use a regular expression to check if the input contains characters other than numbers and commas
@@ -25,13 +25,16 @@ class DecapitatorGUI:
             print(rows)
             result_label.config(text="Redundant headers are removed")
         decapitator_result = decapitator.decapitator(dataframe, rows)
-        return decapitator
+        return decapitator_result
 
     def create_decapitator_tab(self, tab_control, dataframe=None):
         decapitator_tab = ttk.Frame(tab_control)
         tab_control.add(decapitator_tab, text='Decapitator')
         
-        label_decapitator = ttk.Label(decapitator_tab, text="This is the Decapitator Tab. You can choose which redundant header that you want to delete. By default it delete the second and the third row. But if you want to delete the first row and the third row, please enter 1,3 without any space")
+        label_decapitator = ttk.Label(decapitator_tab, text="This is the Decapitator Tab. \
+                                      You can choose which redundant header that you want to delete. \
+                                      By default it delete the second and the third row. \
+                                      But if you want to delete the first row and the third row, please enter 1,3 without any space")
         label_decapitator.pack(padx=10, pady=10)
 
         entry_text = tk.StringVar()
@@ -42,9 +45,7 @@ class DecapitatorGUI:
         result_label = ttk.Label(decapitator_tab, text="")
         result_label.pack(pady=10)
 
-        submit_button = ttk.Button(decapitator_tab, text='Submit', command=lambda: self.decapitator_function(dataframe, entry_text.get(), submit_button, result_label))
+        submit_button = ttk.Button(decapitator_tab, text='Submit',
+                                   command=lambda: self.decapitator_function(dataframe, entry_text.get(), submit_button, result_label))
         submit_button.pack(pady=10)
-        
-        # TODO
-        # Add appropriate dataframe to be returned here
         

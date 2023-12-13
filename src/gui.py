@@ -14,7 +14,7 @@ class App:
         root.title('Seven Tabbed GUI')
         tab_control = ttk.Notebook(root)
         reader = reader_gui.ReaderGUI(self)
-        decapitator = decapitator_gui.DecapitatorGUI()
+        decapitator = decapitator_gui.DecapitatorGUI(self)
         executioner = executioner_gui.Executioner()
         converter = longwideconverter_gui.LongWideConverter()
         janitor = janitor_gui.JanitorGUI()
@@ -44,6 +44,9 @@ class App:
         self.dataframe = dataframe
         print("Dataframe updated in App class:", self.dataframe)
         # Now you can pass self.dataframe to other instances of other classes
+        
+    def get_dataframe(self):
+        return self.dataframe
 
 
 def main():
