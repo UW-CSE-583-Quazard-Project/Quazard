@@ -24,9 +24,8 @@ class TestDecapitator(unittest.TestCase):
         self.assertTrue(raw_df.shape == modified_df.shape)
         raw_df['Finished'] = raw_df['Finished'].replace({'TRUE': True})
         raw_df['Finished'] = raw_df['Finished'].replace({'FALSE': False})
-        raw_df = raw_df.astype(modified_df.dtypes)
-        comparison_result = raw_df.equals(modified_df)
-        self.assertTrue(comparison_result)
+        comparison_result = raw_df.compare(modified_df)
+        self.assertTrue(comparison_result.empty)
     
     # one shot test
     def test_decapitator_result_2(self):
@@ -39,9 +38,8 @@ class TestDecapitator(unittest.TestCase):
         self.assertTrue(raw_df.shape == modified_df.shape)
         raw_df['Finished'] = raw_df['Finished'].replace({'TRUE': True})
         raw_df['Finished'] = raw_df['Finished'].replace({'FALSE': False})
-        raw_df = raw_df.astype(modified_df.dtypes)
-        comparison_result = raw_df.equals(modified_df)
-        self.assertTrue(comparison_result)
+        comparison_result = raw_df.compare(modified_df)
+        self.assertTrue(comparison_result.empty)
     
     # edge test
     def test_decapitator_edge(self):
