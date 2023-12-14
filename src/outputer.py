@@ -1,7 +1,16 @@
+'''
+This is the outputer module used to output a csv file.
+'''
 import os
 import pandas as pd
 
 def outputer(file, file_path):
+    '''
+    This function takes a dataframne and a file path to output a csv file.
+    Parameters:
+    - file: Dataframe from upstream
+    - file_path: The path to output the csv file.
+    '''
     if not isinstance(file, pd.DataFrame):
         raise ValueError("The input file in outputer should be a dataframe.")
     if not isinstance(file_path, str):

@@ -1,3 +1,6 @@
+'''
+This module is for the gui of the decapitator component
+'''
 import tkinter as tk
 import tkinter.ttk as ttk
 import decapitator
@@ -8,6 +11,9 @@ class DecapitatorGUI:
         self.app_instance = app_instance
     
     def is_valid_input(self, user_input):
+        '''
+        This function checks whether the input is valid.
+        '''
         # Use a regular expression to check if the input contains characters other than numbers and commas
         if len(user_input) == 0:
             return False

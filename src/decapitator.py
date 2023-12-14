@@ -1,3 +1,7 @@
+'''
+This module is for the decapitator component. It is used to remove redundent headers generated
+by Qualtrics.
+'''
 import pandas as pd
 import os
 
