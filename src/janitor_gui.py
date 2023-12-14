@@ -20,39 +20,47 @@ class JanitorGUI:
         """
         janitor_tab = ttk.Frame(tab_control)
         tab_control.add(janitor_tab, text='Janitor')
-        
+
+        label_janitor_top = ttk.Label(janitor_tab, text='This is the Janitor Tab.\n \
+                                        Here you can drop unwanted columns')
+        label_janitor_top.grid(padx=10, pady=10)
+
+        # Create a Frame for three columns
+        frame_columns = tk.Frame(janitor_tab)
+        frame_columns.grid(row=1, column=0, padx=10, pady=10)
+
         # Create a button to add refresh data
-        add_button1 = ttk.Button(janitor_tab, text="Refresh Data",
+        add_button1 = ttk.Button(frame_columns, text="Refresh Data",
                                 command=lambda: self.refresh())
         add_button1.grid(row=0, column=0, padx=60, pady=5, sticky=tk.W)
         if self.app_instance.get_dataframe():
             self.options = self.app_instance.get_dataframe().columns.tolist()
         
         # Create labels
-        label1 = ttk.Label(janitor_tab, text="Select columns to be dropped:")
+        label1 = ttk.Label(frame_columns, text="Select columns to be dropped:")
         label1.grid(row=1, column=0, padx=10, pady=5, sticky=tk.W)
         
         # Create a dropmenu with options of dataframe columns
         self.selected_values = []
-        self.combobox = ttk.Combobox(janitor_tab, values=self.options)
+        self.combobox = ttk.Combobox(frame_columns, values=self.options)
         self.combobox.grid(row=2, column=0, padx=20, pady=20, sticky=tk.W)
         
         # Create a box to display selected columns
-        listbox = tk.Listbox(janitor_tab)
+        listbox = tk.Listbox(frame_columns)
         listbox.grid(row=3, column=0, padx=30, pady=10, sticky=tk.W)
         
         # # Create a button to add selected values
-        add_button1 = ttk.Button(janitor_tab, text="Add",
+        add_button1 = ttk.Button(frame_columns, text="Add",
                                 command=lambda: self.add_to_list(self.combobox, self.selected_values, listbox))
         add_button1.grid(row=4, column=0, padx=60, pady=5, sticky=tk.W)
                 
         # Create a button to submit selected values
-        drop_button = ttk.Button(janitor_tab, text="Drop Selected Columns",
+        drop_button = ttk.Button(frame_columns, text="Drop Selected Columns",
                                 command=lambda: self.drop_selected_columns(self.selected_values))
         drop_button.grid(row=1, column=1, padx=10, pady=10)
         
         # Create a button to clear selected columns
-        clear_button = ttk.Button(janitor_tab, text="Clear List", command=lambda: self.clear_list(listbox))
+        clear_button = ttk.Button(frame_columns, text="Clear List", command=lambda: self.clear_list(listbox))
         clear_button.grid(row=2, column=1, padx=10, pady=10)
     
     def refresh(self):

@@ -1,3 +1,8 @@
+'''
+This is the executioner component. These functions remove rows from the dataframe based on inputs.
+They can be turned off individually on the GUI.
+'''
+
 import pandas as pd
 
 
@@ -28,7 +33,7 @@ def executioner_preview(file, response_id_column, status_column):
     if response_id_column not in file.columns:
         raise ValueError("Please make sure response ID column name is properly entered")
     
-    # Check whether the finished column is in the dataframe
+    # Check whether the status column is in the dataframe
     if status_column not in file.columns:
         raise ValueError("Please make sure the status column name is properly entered")
 
@@ -125,15 +130,15 @@ def executioner_recaptcha(file, response_id_column, recaptcha_id_column, thresho
     if recaptcha_id_column not in file.columns:
         raise ValueError("Please make sure recaptcha column name is properly entered")
 
-    # Check if the number of trials is a positive integer
+    # Check if the threhold is a positive float
     if not (isinstance(threshold, float) or isinstance(threshold, int)) and threshold >= 0:
-         raise ValueError("The number of trials should be a positive integer")
+         raise ValueError("The threhold should be a positive decimal like 0.5")
     
     # Check if the equal_score is a boolean
     if not isinstance(equal_score, bool):
          raise ValueError("Please make sure the input for whether it is equal or above is True or False")
     
-    # Check if the equal_score is a boolean
+    # Check if the missing_score is a boolean
     if not isinstance(missing_score, bool):
          raise ValueError("Please make sure the input for whether to keep missing scores is True or False")
 
@@ -177,7 +182,7 @@ def executioner_attentioncheck_multiplechoice(file, response_id_column, attentio
     if response_id_column not in file.columns:
         raise ValueError("Please make sure response ID column name is properly entered")
     
-    # Check whether the response ID column is in the dataframe
+    # Check whether the attention check multiple choice column is in the dataframe
     if attentioncheck_mp not in file.columns:
         raise ValueError("Please make sure attention check column name is properly entered")
 
@@ -218,7 +223,7 @@ def executioner_attentioncheck_text(file, response_id_column, attentioncheck_tex
     if response_id_column not in file.columns:
         raise ValueError("Please make sure response ID column name is properly entered")
     
-    # Check whether the response ID column is in the dataframe
+    # Check whether the attention check text column is in the dataframe
     if attentioncheck_text not in file.columns:
         raise ValueError("Please make sure attention check column name is properly entered")
 

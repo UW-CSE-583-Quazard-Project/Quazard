@@ -1,3 +1,6 @@
+"""
+This components handles the gui for the executioner component
+"""
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
 import executioner as exe
@@ -7,10 +10,15 @@ class Executioner:
         self.app_instance = app_instance
 
     def create_executioner_tab(self, tab_control):
+        """    
+        Parameters:
+        - tab_control: The upper layer control from the main GUI
+        """
         
-        
-        # Canvas for scroll bar
         def on_configure(event):
+            """    
+            This function is necessary for creating a side scroll bar
+            """
             canvas.configure(scrollregion=canvas.bbox("all"))
         
         executioner_tab = ttk.Frame(tab_control)
@@ -32,14 +40,21 @@ class Executioner:
         scrollable_frame = ttk.Frame(canvas)
         canvas.create_window((0, 0), window=scrollable_frame, anchor=tk.NW)
 
-        label_executioner = ttk.Label(scrollable_frame, text='This is the Executioner Tab.\n \
-                                      Here you can remove rows based on a number of parameters\n \
-                                      Please make sure your dataset has only one header. \
-                                      If not, use decapitator first.')
+        label_executioner = ttk.Label(scrollable_frame, text="This is the Executioner Tab.\n"
+                                      "Here you can remove rows based on a number of parameters.\n"
+                                      "Please make sure your dataset has only one header.\n"
+                                      "If not, use decapitator first.\n"
+                                      "NOTE: Inproperly entered column names and parameters may lead "
+                                      "to failed/undesired execution without error message popup. \n"
+                                      "Check terminal for error message.")
         label_executioner.pack(padx=10, pady=10)
+        
 
-        #### Upon Submission ####
         def submit():
+            """    
+            After clicking the submit button, this function will read the input and pass
+            them onto the executioner subfunctions.
+            """
             file = self.app_instance.get_dataframe()
             # participant ID
             response_id_column = entry_id.get()
@@ -56,8 +71,7 @@ class Executioner:
                 # run the executioner
                 mylist = exe.executioner_preview(file, response_id_column, status_column)
                 file =  mylist[0]
-                messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed for being survey previews.\
-                                    Here are their IDs:{mylist[1]}")
+                messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed for being survey previews. Here are their IDs:{mylist[1]}")
                 print(f"{mylist[2]} participants/rows removed for being survey previews. Here are their IDs")
                 print(mylist[1])
                 self.app_instance.update_dataframe(file)
@@ -76,8 +90,9 @@ class Executioner:
                 # run the executioner
                 mylist = exe.executioner_completion(file, response_id_column, finished_column)
                 file =  mylist[0]
-                messagebox.showinfo("Success!", f"{mylist[2]} unfinished participants/rows removed. Here are their IDs:{mylist[1]}")
-                print(f"{mylist[2]} unfinished participants/rows removed. Here are their IDs")
+                messagebox.showinfo("Success!",
+                                    f"{mylist[2]} unfinished participants/rows removed. Here are their IDs:{mylist[1]}")
+                print(f"{mylist[2]} unfinished participants/rows removed. \Here are their IDs")
                 print(mylist[1])
                 self.app_instance.update_dataframe(file)
                 
@@ -158,8 +173,8 @@ class Executioner:
                                             reportonly
                                                 )
                 file =  mylist[0]
-                messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed based on a text entry attention check. Here are their IDs:{mylist[1]}")
-                print(f"{mylist[2]} participants/rows removed based on a text entry attention check. Here are their IDs")
+                messagebox.showinfo("Success!", f"{mylist[2]} participants/rows removed/identified based on a text entry attention check. Here are their IDs:{mylist[1]}")
+                print(f"{mylist[2]} participants/rows removed/identified based on a text entry attention check. Here are their IDs")
                 print(mylist[1])
                 self.app_instance.update_dataframe(file)
             # return file
@@ -168,7 +183,9 @@ class Executioner:
 
         ### General Paramters ###
         # Create an input text entry for response id
-        label_id = tk.Label(scrollable_frame, text="Enter the column name for response id column.\nYou must have this parameter for any function on this page.\nIf you are unsure, please go to the output tab and print out the CSV to check")
+        label_id = tk.Label(scrollable_frame, text="Enter the column name for response id column.\n"
+                            "You must have this parameter for any function on this page.\n"
+                            "If you are unsure, please go to the output tab and print out the CSV to check")
         label_id.pack()
         entry_id = tk.Entry(scrollable_frame)
         entry_id.pack()
@@ -183,7 +200,8 @@ class Executioner:
 
         # Create a checkbox
         var_preview_checkbox = tk.BooleanVar()
-        preview_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows that are previews?", variable=var_preview_checkbox)
+        preview_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows that are previews?",
+                                          variable=var_preview_checkbox)
         preview_checkbox.pack()
 
         # Create an input text entry for status
@@ -203,11 +221,13 @@ class Executioner:
 
         # Create a checkbox
         var_finished_checkbox = tk.BooleanVar()
-        finished_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove unfinished rows/participants?", variable=var_finished_checkbox)
+        finished_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove unfinished rows/participants?"
+                                           , variable=var_finished_checkbox)
         finished_checkbox.pack()
 
         # Create an input text entry for the finished column
-        label_finished = tk.Label(scrollable_frame, text="Enter the column name for the 'finished' column. It should have TRUE and FALSE as values. ")
+        label_finished = tk.Label(scrollable_frame, text="Enter the column name for the 'finished' column."
+                                  "It should have TRUE and FALSE as values.")
         label_finished.pack()
         entry_finished = tk.Entry(scrollable_frame)
         entry_finished.pack()
@@ -224,17 +244,20 @@ class Executioner:
 
         # Create a checkbox for whether to do this function
         var_recap = tk.BooleanVar()
-        recap_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on recaptcha scores?", variable=var_recap)
+        recap_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on recaptcha scores?"
+                                        , variable=var_recap)
         recap_checkbox.pack()
 
         # Create a checkbox for the equal value argument
         var_equal = tk.BooleanVar()
-        recap_checkbox_equal = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants with scores equal to the threshold?\nBy default only those above the threshold will be kept.", variable=var_equal)
+        recap_checkbox_equal = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants with scores equal to the threshold?\n"
+                                              "By default only those above the threshold will be kept.", variable=var_equal)
         recap_checkbox_equal.pack()
 
         # Create a checkbox for the missing value argument
         var_missing = tk.BooleanVar()
-        recap_checkbox_missing = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants who do not have a score?", variable=var_missing)
+        recap_checkbox_missing = tk.Checkbutton(scrollable_frame, text="Do you want to keep participants who do not have a score?", 
+                                                variable=var_missing)
         recap_checkbox_missing.pack()
 
         # Create an input text entry for the recaptcha score column
@@ -246,7 +269,8 @@ class Executioner:
         # Create an input text entry for the threshold
         # First enables validation
         validate_func = executioner_tab.register(self.validate_input)
-        label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept.\nMust be a number between 0 and 1. For example: 0.5")
+        label_recap_threshold = tk.Label(scrollable_frame, text="Enter the recaptcha threshold above which participants/rows will be kept.\n "
+                                        "Must be a number between 0 and 1. For example: 0.5")
         label_recap_threshold.pack()
         entry_recap_threshold = tk.Entry(scrollable_frame, validate="key", validatecommand=(validate_func, '%P'))
         entry_recap_threshold.pack()
@@ -262,7 +286,9 @@ class Executioner:
 
         # Create a checkbox for whether to do this function
         var_acmp = tk.BooleanVar()
-        acmp_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a multiple choice attention check?\nIf you have more than one multiple choice attention check, you can submit this tab more than once.", variable=var_acmp)
+        acmp_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a multiple choice attention check?\n"
+                                       "If you have more than one multiple choice attention check, you can submit this tab more than once.", 
+                                       variable=var_acmp)
         acmp_checkbox.pack()
 
         # Create an input text entry for the attention check column
@@ -272,7 +298,9 @@ class Executioner:
         entry_acmp_col.pack()
 
         # Create an input text entry for the right answer
-        label_acmp_answer = tk.Label(scrollable_frame, text="Enter the right answer(s) as numbers, not text.\nSelect 'Use Numeric Values' when downloading from qualtrics.\nSeperate each number with a coma with no space after, like this:\n1,2,3")
+        label_acmp_answer = tk.Label(scrollable_frame, text="Enter the right answer(s) as numbers, not text.\nSelect 'Use Numeric Values'"
+                                     "when downloading from qualtrics.\nSeperate each number with a coma with no space after, like this:\n"
+                                     "1,2,3")
         label_acmp_answer.pack()
         entry_acmp_answer = tk.Entry(scrollable_frame)
         entry_acmp_answer.pack()
@@ -289,12 +317,16 @@ class Executioner:
 
         # Create a checkbox for whether to do this function
         var_acte = tk.BooleanVar()
-        acte_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a text entry attention check?\nIf you have more than one text entry attention check, you can submit this tab more than once.", variable=var_acte)
+        acte_checkbox = tk.Checkbutton(scrollable_frame, text="Do you want to remove rows/participants based on a text entry attention check?\n"
+                                       "If you have more than one text entry attention check, you can submit this tab more than once.", 
+                                       variable=var_acte)
         acte_checkbox.pack()
 
         # Create a checkbox for report only argument
         var_acte_report = tk.BooleanVar()
-        acte_checkbox_report = tk.Checkbutton(scrollable_frame, text="Do you want to only report the participants with mismatch answers instead of removing them? You can manually check and remove them based on the report.", variable=var_acte_report)
+        acte_checkbox_report = tk.Checkbutton(scrollable_frame, text="Do you want to only report the participants with mismatch answers "
+                                              "instead of removing them? You can manually check and remove them based on the report.", 
+                                              variable=var_acte_report)
         acte_checkbox_report.pack()
 
         # Create an input text entry for the attention check column
@@ -304,7 +336,9 @@ class Executioner:
         entry_acte_col.pack()
 
         # Create an input text entry for the right answer
-        label_acte_answer = tk.Label(scrollable_frame, text="Enter the right answer(s). Each answer should be covered by single quote marks and seperated with comma, like this:\n'apple','orange','banana'")
+        label_acte_answer = tk.Label(scrollable_frame, text="Enter the right answer(s). Each answer should be covered by single quote marks"
+                                    "and seperated with comma, like this:\n"
+                                    "apple','orange','banana'")
         label_acte_answer.pack()
         entry_acte_answer = tk.Entry(scrollable_frame)
         entry_acte_answer.pack()
