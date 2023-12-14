@@ -42,9 +42,7 @@ def decapitator(file, rows=None):
                 file[col] = pd.to_numeric(file[col])
             except ValueError:
                 try:
-                    file[col] = pd.to_datetime(file[col])
+                    file[col] = pd.to_datetime(file[col], format='%m/%d/%Y %H:%M')
                 except ValueError:
                     pass  # Handle non-convertible columns
-    print(file.dtypes)
-    print(file['Q_RecaptchaScore'].dtypes)
     return file
