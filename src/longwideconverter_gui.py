@@ -1,5 +1,7 @@
 """
-This is the module to handle the GUI tab for longwideconverter
+Module for Converter GUI component
+Allows user to convert the wide format data to long format data
+by interacting with the GUI 
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -7,6 +9,17 @@ import pandas as pd
 import longwideconverter as convert
 
 class LongWideConverter:
+    """ 
+    A GUI class for the converter functionality
+    It will convert the wide-format data to long-format data for future easier analysis
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
 
@@ -100,9 +113,6 @@ class LongWideConverter:
         button_submit = tk.Button(converter_tab, text="Submit", command=submit)
         button_submit.pack()
 
-        # return file so that other tabs can do something with it.
-        # return file
-        # self.app_instance.update_dataframe(file)
 
     def validate_input(self, new_value):
         if new_value == "":

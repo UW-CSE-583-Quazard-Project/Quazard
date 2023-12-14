@@ -1,5 +1,6 @@
 """
 This is the main module for our application GUI
+It handles all the event calls and component interactions between components
 """
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox

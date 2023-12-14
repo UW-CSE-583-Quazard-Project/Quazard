@@ -1,11 +1,24 @@
 """
-This is the module to handle the GUI tab for Outputer
+Module for Outputer GUI component
+Allows user to export the current dataframe to csv files
+by interacting with the GUI
 """
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
 import outputer
 
 class OutputerGUI:
+    """ 
+    A GUI class for the outputer functionality
+    It will export the current dataframe as csv file with the given file name
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
 

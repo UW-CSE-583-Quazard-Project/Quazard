@@ -1,5 +1,7 @@
 """
-This is the module to handle the GUI tab for Executioner
+Module for frankenstein GUI component
+Allows user to aggregate expected columns from the data
+by selecting columns
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -7,6 +9,16 @@ import pandas as pd
 import frankenstein as fc
 
 class FrankensteinGUI:
+    """ 
+    A GUI class for the aggregation functionality.
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
         self.options = ["a", "b", "c"]
@@ -105,6 +117,9 @@ class FrankensteinGUI:
         exe_button.grid(row=3, column=3, padx=10, pady=5, sticky=tk.W)
     
     def refresh(self):
+        """
+        Refreshes the current dataframe
+        """
         self.options = self.app_instance.get_dataframe().columns.tolist()
         self.combobox['values'] = self.options
         self.combobox2['values'] = self.options

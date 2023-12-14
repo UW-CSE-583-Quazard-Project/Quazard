@@ -1,5 +1,7 @@
 """
-This is the module to handle the GUI tab for Reader
+Module for Reader GUI component
+Allows user to read the selected csv raw data file
+by interacting with the GUI
 """
 import tkinter.ttk as ttk
 from tkinter import ttk
@@ -7,12 +9,19 @@ from tkinter import filedialog as fd
 import reader as rd
 
 class ReaderGUI:
+    """ 
+    A GUI class for the reader functionality
+    It will read the selected file as a dataframe and pass them to other components
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
-    
-    # def get_file_name(self):
-    #     file_name = simpledialog.askstring("Input", "Enter file name:")
-    #     return file_name
 
     def create_reader_tab(self, tab_control):
         """    

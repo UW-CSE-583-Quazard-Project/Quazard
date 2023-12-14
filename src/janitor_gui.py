@@ -1,5 +1,7 @@
 """
-This is the module to handle the GUI tab for Janitor
+Module for Janitor GUI component
+Allows user to drop unwanted columns
+by interacting with the GUI 
 """
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -8,6 +10,16 @@ import pandas as pd
 from tkinter import messagebox
 
 class JanitorGUI:
+    """ 
+    A GUI class for the Janitor functionality (drop selected columns).
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
         self.options = ["a", "b", "c"]
@@ -64,6 +76,9 @@ class JanitorGUI:
         clear_button.grid(row=2, column=1, padx=10, pady=10)
     
     def refresh(self):
+        """
+        Refreshes the current dataframe
+        """
         self.options = self.app_instance.get_dataframe().columns.tolist()
         self.combobox['values'] = self.options
     
