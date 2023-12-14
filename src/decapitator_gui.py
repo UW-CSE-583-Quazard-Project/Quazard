@@ -3,6 +3,7 @@ Module for decapitator GUI component
 Allows user to drop the repeated headers of the dataframe
 by interacting with the GUI
 """
+
 import tkinter as tk
 import tkinter.ttk as ttk
 import decapitator
@@ -32,6 +33,7 @@ class DecapitatorGUI:
         Returns:
         - bool: True if the input is valid, False otherwise.
         """
+        # Use a regular expression to check if the input contains characters other than numbers and commas
         if len(user_input) == 0:
             return False
         pattern = re.compile(r'[^1-3,]')

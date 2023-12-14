@@ -11,3 +11,7 @@ import pandas as pd
 def reader(file_path):
     df = pd.read_csv(file_path, header=None)
     return df
+
+def reader_oneheader(file_path):
+    df = pd.read_csv(file_path)
+    return df
