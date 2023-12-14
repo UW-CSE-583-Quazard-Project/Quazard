@@ -1,11 +1,22 @@
 """
-This components handles the gui for the executioner component
+Module for decapitator GUI component
+Allows user to clean up noisy information from the raw data
+by inputting necessary parameters
 """
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
 import executioner as exe
 
 class Executioner:
+    """ A GUI class for the executioner functionality.
+
+    Parameters:
+    - app_instance: An instance of the main application class.
+
+    Usage:
+    - Create an instance of this class, passing the main application instance.
+    - Use the created instance to create the Decapitator tab within the application GUI.
+    """
     def __init__(self, app_instance):
         self.app_instance = app_instance
 
